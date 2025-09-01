@@ -1,19 +1,13 @@
-
 // container 
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-
 
 // adding services to the conatiner  
 
 builder.Services.AddControllersWithViews();
 
 
-
 var app = builder.Build();
-
 
 // if (!app.Environment.IsDevelopment())
 // {

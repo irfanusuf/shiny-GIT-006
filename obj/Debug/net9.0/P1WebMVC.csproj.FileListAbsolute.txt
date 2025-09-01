@@ -95,3 +95,4 @@
 /home/irfanyousuf/coding/GIT-006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.pdb
 /home/irfanyousuf/coding/GIT-006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.genruntimeconfig.cache
 /home/irfanyousuf/coding/GIT-006/P1WebMVC/obj/Debug/net9.0/ref/P1WebMVC.dll
+/home/irfanyousuf/coding/GIT-006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.sourcelink.json
