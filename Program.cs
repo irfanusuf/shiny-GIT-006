@@ -1,10 +1,20 @@
 // container 
 
+using Microsoft.EntityFrameworkCore;
+using P1WebMVC.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // adding services to the conatiner  
 
 builder.Services.AddControllersWithViews();
+
+
+// Di // Automated Di 
+builder.Services.AddDbContext<SqlDbContext>((options) => options.UseSqlServer(builder.Configuration.GetConnectionString("cloud")));
+
+
+
 
 
 var app = builder.Build();

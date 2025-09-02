@@ -28,6 +28,8 @@
         <input type="text" class="form-control"  placeholder="john doe" name="Username">
     </div>
 
+   
+ @* postArr = [username , email , password] *@
 
     <div class="mb-3">
         <label  class="form-label">Email address</label>
@@ -48,13 +50,18 @@
         </div>
 
     </div>
+
+
+
     <p> Already have an account  <a href="/user/login"> Login </a>     </p>
 
     <button type="submit"  class="btn btn-secondary  mt-3 "> Create Account </button>
 
 
-        @* html rendering on condition  *@
 
+
+
+        @* html rendering on condition  *@
 
     @{
         if( !string.IsNullOrEmpty(ViewBag.ErrorMessage ) ){
