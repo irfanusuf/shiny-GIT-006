@@ -10,10 +10,7 @@ namespace P1WebMVC.Controllers
     public class UserController : Controller
     {
 
-
-
         private readonly SqlDbContext dbContext;
-
 
         public UserController(SqlDbContext dbContext)
         {
@@ -26,6 +23,9 @@ namespace P1WebMVC.Controllers
         {
             return View();
         }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult> Register(User user)
@@ -43,7 +43,7 @@ namespace P1WebMVC.Controllers
                 ViewBag.ErrorMessage = "Password is less than 8 characters";
                 return View();
             }
-            // if existing user 
+            // if existing user     LINQ query 
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
 
             if (existingUser != null)
@@ -54,6 +54,8 @@ namespace P1WebMVC.Controllers
             // password encrypt
             var passEncrypt = BCrypt.Net.BCrypt.HashPassword(user.Password);
             user.Password = passEncrypt;
+
+
             var newUser = await dbContext.Users.AddAsync(user);
 
             // db save 
@@ -78,13 +80,44 @@ namespace P1WebMVC.Controllers
             return View();
         }
 
+
+
         [HttpPost]
-          public ActionResult Login(string Email , string Password)
+        public async Task<ActionResult> Login(string Email, string Password)
         {
-            return View();
+
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
+            {
+                ViewBag.ErrorMessage = "Email and password both required";   
+                return View();
+            }
+
+
+            var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == Email);   // single user return 
+
+
+
+
+            if (existingUser == null)
+            {
+                ViewBag.ErrorMessage = "No User Found with this Email";
+                return View();
+            }
+
+
+            var passVerify = BCrypt.Net.BCrypt.Verify(Password , existingUser.Password);
+
+            if (passVerify)
+            {
+                ViewBag.SuccessMessage = "User Login Succesfull !";   
+                return View(); 
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Incorrect Password !";   
+                return View(); 
+            }
+  
         }
-
-
-
     }
 }
