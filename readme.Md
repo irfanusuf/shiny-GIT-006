@@ -19,7 +19,7 @@
     dotnet add package Razorpay --version 3.1.4
 
 
-    dotnet add package System.IdentityModel.Tokens.Jwt --version 8.3.1
+    dotnet add package System.IdentityModel.Tokens.Jwt --version 8.14.0
 
     
     dotnet add package dotenv.net --version 3.2.1

@@ -1,7 +1,10 @@
 // container 
 
+using System.Security.Principal;
 using Microsoft.EntityFrameworkCore;
 using P1WebMVC.Data;
+using P1WebMVC.Interfaces;
+using P1WebMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SqlDbContext>((options) => options.UseSqlServer(builder.Configuration.GetConnectionString("cloud")));
 
 
+// dependency Injection 
+builder.Services.AddSingleton<ITokenService , TokenService>(); 
 
 
 

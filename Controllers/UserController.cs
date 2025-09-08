@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using P1WebMVC.Data;
+using P1WebMVC.Interfaces;
 using P1WebMVC.Models;
 
 namespace P1WebMVC.Controllers
@@ -11,10 +12,12 @@ namespace P1WebMVC.Controllers
     {
 
         private readonly SqlDbContext dbContext;
+        private readonly ITokenService tokenService;
 
-        public UserController(SqlDbContext dbContext)
+        public UserController(SqlDbContext dbContext, ITokenService tokenService)
         {
             this.dbContext = dbContext;
+            this.tokenService = tokenService;
         }
 
 
@@ -43,16 +46,22 @@ namespace P1WebMVC.Controllers
                 ViewBag.ErrorMessage = "Password is less than 8 characters";
                 return View();
             }
+
+
             // if existing user     LINQ query 
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+
+
 
             if (existingUser != null)
             {
                 ViewBag.ErrorMessage = "User with this email already exists";
                 return View();
             }
+
             // password encrypt
             var passEncrypt = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
             user.Password = passEncrypt;
 
 
@@ -74,6 +83,9 @@ namespace P1WebMVC.Controllers
         }
 
 
+
+
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -86,12 +98,16 @@ namespace P1WebMVC.Controllers
         public async Task<ActionResult> Login(string Email, string Password)
         {
 
+
+
+                // validation 
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
-                ViewBag.ErrorMessage = "Email and password both required";   
+                ViewBag.ErrorMessage = "Email and password both required";
                 return View();
             }
 
+                // check user
 
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == Email);   // single user return 
 
@@ -105,10 +121,19 @@ namespace P1WebMVC.Controllers
             }
 
 
+                    // pass verify
             var passVerify = BCrypt.Net.BCrypt.Verify(Password , existingUser.Password);
 
             if (passVerify)
             {
+                // session mangement // jwt token then send that to cookies 
+
+               var token =  tokenService.CreateToken(existingUser.UserId , Email , existingUser.Username , 7);
+
+
+                // send the token in cookies // tommorow
+
+
                 ViewBag.SuccessMessage = "User Login Succesfull !";   
                 return View(); 
             }
@@ -121,3 +146,4 @@ namespace P1WebMVC.Controllers
         }
     }
 }
+
