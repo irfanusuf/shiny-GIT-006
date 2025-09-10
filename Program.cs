@@ -12,14 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-
 // Di // Automated Di 
 builder.Services.AddDbContext<SqlDbContext>((options) => options.UseSqlServer(builder.Configuration.GetConnectionString("cloud")));
 
-
 // dependency Injection 
 builder.Services.AddSingleton<ITokenService , TokenService>(); 
-
 
 
 var app = builder.Build();
@@ -29,11 +26,7 @@ var app = builder.Build();
 //     app.UseExceptionHandler("/Home/Error");
 //     app.UseHsts();
 // }
-
-
-
 // middlewares 
-
 
 app.UseHttpsRedirection();
 

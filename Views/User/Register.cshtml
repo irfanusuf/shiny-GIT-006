@@ -1,4 +1,11 @@
 ﻿
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+
 <style>
 
 .my_register_form{
@@ -66,7 +73,7 @@
 
 
 
-    @{
+    @* @{
         if( !string.IsNullOrEmpty(ViewBag.ErrorMessage ) ){
          <p class="text-danger pt-3"> @ViewBag.ErrorMessage </p>
         }
@@ -75,7 +82,7 @@
         if(!string.IsNullOrEmpty(ViewBag.SuccessMessage)){
             <p class="text-success pt-3"> @ViewBag.SuccessMessage </p>
         }
-    }
+    } *@
 
 
    

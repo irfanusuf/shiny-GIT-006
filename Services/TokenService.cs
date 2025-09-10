@@ -46,11 +46,10 @@ public class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
-
-
-
-
-
+    public Guid VerifyToken(string token)
+    {
+        throw new NotImplementedException();
+    }
 
     public Guid VerifyTokenAndGetId(string token)
     {

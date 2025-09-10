@@ -13,7 +13,7 @@ public class SqlDbContext : DbContext
 
     // entities
     
-     public   DbSet<User> Users { get; set; }
+     public DbSet<User> Users { get; set; }
 
 
 }

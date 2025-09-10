@@ -1,54 +1,233 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - P1WebMVC</title>
+
+    <title>@ViewData["Title"] - Trinkle Buddies</title>
+
+
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/P1WebMVC.styles.css" asp-append-version="true" />
 </head>
+
 <body>
 
 
 
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trinkle Buddies</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+   <header>
+  <!-- Intro settings -->
+  <style>
+    /* Default height for small devices */
+    #intro-example {
+      height: 400px;
+    }
 
-                           <li class="nav-item"></li>
-                            <a class="nav-link text-dark"  href="/user/register" >Register</a>
-                        </li>
-                    </ul>
-                </div>
+    /* Height for devices larger than 992px */
+    @* @media (min-width: 992px) {
+      #intro-example {
+        height: 600px;
+      }
+    } *@
+  </style>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white">
+    <div class="container-fluid">
+      <button
+        data-mdb-collapse-init
+        class="navbar-toggler"
+        type="button"
+        data-mdb-target="#navbarExample01"
+        aria-controls="navbarExample01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Background image -->
+  <div
+    id="intro-example"
+    class="p-5 text-center bg-image"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');"
+  >
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="mb-3">Welcome to the Trinkle buddies</h1>
+          <h5 class="mb-4">Best & free guide of responsive web design</h5>
+          <a
+            data-mdb-ripple-init
+            class="btn btn-outline-light btn-lg m-2"
+            href="https://www.youtube.com/watch?v=c9B4TPnak1A"
+            role="button"
+            rel="nofollow"
+            target="_blank"
+          >Start tutorial</a
+          >
+          <a
+            data-mdb-ripple-init
+            class="btn btn-outline-light btn-lg m-2"
+            href="https://mdbootstrap.com/docs/standard/"
+            target="_blank"
+            role="button"
+          >Download MDB UI KIT</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Background image -->
+</header>
+
+    @{
+        if (@TempData["SuccessMessage"] != null)
+        {
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success</strong> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        </nav>
-    </header>
+        }
 
+
+        if (@TempData["ErrorMessage"] != null)
+        {
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error</strong> @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+        {
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success</strong> @ViewBag.SuccessMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error</strong> @ViewBag.ErrorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    }
 
 
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="min-height: 90vh;">
             @RenderBody()
         </main>
     </div>
 
 
+
+
+   <footer class="bg-body-tertiary text-center">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a
+      data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #3b5998;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #55acee;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #dd4b39;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #ac2bac;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #0082ca;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+      <!-- Github -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #333333;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2020 Copyright:
+    <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
 
 
     <footer class="border-top footer text-muted">
@@ -65,4 +244,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

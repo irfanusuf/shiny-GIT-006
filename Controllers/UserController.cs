@@ -98,21 +98,15 @@ namespace P1WebMVC.Controllers
         public async Task<ActionResult> Login(string Email, string Password)
         {
 
-
-
-                // validation 
+            // validation 
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
                 ViewBag.ErrorMessage = "Email and password both required";
                 return View();
             }
-
-                // check user
+            // check user
 
             var existingUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == Email);   // single user return 
-
-
-
 
             if (existingUser == null)
             {
@@ -120,30 +114,46 @@ namespace P1WebMVC.Controllers
                 return View();
             }
 
-
-                    // pass verify
-            var passVerify = BCrypt.Net.BCrypt.Verify(Password , existingUser.Password);
+            // pass verify
+            var passVerify = BCrypt.Net.BCrypt.Verify(Password, existingUser.Password);
 
             if (passVerify)
             {
                 // session mangement // jwt token then send that to cookies 
 
-               var token =  tokenService.CreateToken(existingUser.UserId , Email , existingUser.Username , 7);
+                var token = tokenService.CreateToken(existingUser.UserId, Email, existingUser.Username, 7);
 
+                // send the token in cookies // tommorow // done 
+                HttpContext.Response.Cookies.Append("authToken", token, new CookieOptions
+                {
+                    Secure = false,
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTime.Now.AddDays(7)
 
-                // send the token in cookies // tommorow
-
-
-                ViewBag.SuccessMessage = "User Login Succesfull !";   
-                return View(); 
+                });
+                // ViewBag.SuccessMessage = "User Login Succesfull !";
+                TempData["SuccessMessage"] = "User login succesFull";
+                return RedirectToAction("Dashboard");
             }
             else
             {
-                ViewBag.ErrorMessage = "Incorrect Password !";   
-                return View(); 
+                ViewBag.ErrorMessage = "Incorrect Password !";
+                return View();
             }
-  
         }
+
+
+
+
+            // dashboard secure // tomorrow
+        [HttpGet]
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
     }
 }
 
