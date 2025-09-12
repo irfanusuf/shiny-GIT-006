@@ -14,10 +14,13 @@ namespace P1WebMVC.Controllers
         private readonly SqlDbContext dbContext;
         private readonly ITokenService tokenService;
 
-        public UserController(SqlDbContext dbContext, ITokenService tokenService)
+        private readonly IMailService mailService;
+
+        public UserController(SqlDbContext dbContext, ITokenService tokenService, IMailService mailService)
         {
             this.dbContext = dbContext;
             this.tokenService = tokenService;
+            this.mailService = mailService;
         }
 
 
@@ -83,15 +86,11 @@ namespace P1WebMVC.Controllers
         }
 
 
-
-
-
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-
 
 
         [HttpPost]
@@ -145,15 +144,98 @@ namespace P1WebMVC.Controllers
 
 
 
-
-            // dashboard secure // tomorrow
         [HttpGet]
 
-        public ActionResult Dashboard()
+        public ActionResult ForgotPassword()
         {
             return View();
         }
 
+
+            [HttpPost]
+
+        public async Task<ActionResult> ForgotPassword(string Email)
+        {
+            // email per otp send kerna hai ager user hoga 
+            try
+            {
+                var user = await dbContext.Users.FirstOrDefaultAsync(user => user.Email == Email);
+
+                if (user == null)
+                {
+                    ViewBag.ErrorMessage = "User doesnot Exist in our Databases";
+                    return View();
+                }
+
+                // email send kerna 
+
+                await mailService.SendMail(Email, "", "OTP for forgot password", "5678", false);
+
+
+                TempData["SuccessMessage"] = "Email  with OTP sent to you address successfully !";
+
+                return RedirectToAction("UpdatePassword");
+
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+
+        [HttpGet]
+        public ActionResult UpdatePassword()
+        {
+
+
+            return View();
+        }
+
+
+        // dashboard secure // tomorrow
+        [HttpGet]
+
+        public async Task<ActionResult> Dashboard()
+        {
+
+            try
+            {
+                var token = HttpContext.Request.Cookies["authToken"];
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    TempData["ErrorMessage"] = "Forbidden to access the page";
+                    return RedirectToAction("login");
+                }
+
+                var userId = tokenService.VerifyTokenAndGetId(token);
+
+                if (userId == Guid.Empty)
+                {
+                    TempData["ErrorMessage"] = "Unauthorized to access the page";
+                    return RedirectToAction("login");
+                }
+
+                else
+                {
+                    var user = await dbContext.Users.FindAsync(userId);
+                    // DTO
+                    return View(user);
+                }
+
+
+            }
+            catch (System.Exception ex) 
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View();
+            }
+     
+        }
     }
 }
 

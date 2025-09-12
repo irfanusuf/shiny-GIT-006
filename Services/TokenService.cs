@@ -46,13 +46,83 @@ public class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
-    public Guid VerifyToken(string token)
+    public bool VerifyToken(string token)
     {
-        throw new NotImplementedException();
+
+        // instance of main class 
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        // encoding of the secret key AscII 
+        var key = Encoding.ASCII.GetBytes(secretKey);
+
+
+        var validationParameters = new TokenValidationParameters
+        {
+
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+
+
+        var validate = tokenHandler.ValidateToken(token, validationParameters, out var validatedToken);
+
+        if (validate == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
     }
+
+
 
     public Guid VerifyTokenAndGetId(string token)
     {
-        throw new NotImplementedException();
+
+        try
+        { // instance of main class 
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            // encoding of the secret key AscII 
+            var key = Encoding.ASCII.GetBytes(secretKey);
+
+
+            var validationParameters = new TokenValidationParameters
+            {
+
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key)
+            };
+
+            var validate = tokenHandler.ValidateToken(token, validationParameters, out var validatedToken);
+
+            var userId = validate.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+
+                throw new Exception("user Id not found in the token");
+            }
+            else
+            {
+                return Guid.Parse(userId.Value);
+            }
+
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
+
+
     }
 }

@@ -10,6 +10,6 @@ public interface ITokenService
 
     public Guid VerifyTokenAndGetId(string token);
 
-    public Guid VerifyToken(string token);
+    public bool VerifyToken(string token);
 
 }

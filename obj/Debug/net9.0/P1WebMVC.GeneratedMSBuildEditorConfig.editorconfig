@@ -60,12 +60,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/Views/User/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9Gb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/Views/User/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/Views/User/UpdatePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9VcGRhdGVQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/Views/_ViewImports.cshtml]

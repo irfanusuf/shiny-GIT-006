@@ -16,7 +16,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SqlDbContext>((options) => options.UseSqlServer(builder.Configuration.GetConnectionString("cloud")));
 
 // dependency Injection 
-builder.Services.AddSingleton<ITokenService , TokenService>(); 
+builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddSingleton<IMailService, EmailService>();
 
 
 var app = builder.Build();

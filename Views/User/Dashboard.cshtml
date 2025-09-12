@@ -1,15 +1,26 @@
-﻿@{
+﻿@model P1WebMVC.Models.User
+
+
+@* User class is a data view model for this page  *@
+
+@{
     ViewData["Title"] = "Dashboard";
 }
 
 
 
 
-
 <div>
 
+    <h1> Welcome @Model.Username.ToUpper() this is the personalized secure dashboard for you </h1>
 
-    <h1> Welcome to the secure user dashboard </h1>
+    <p> this is your userId : @Model.UserId</p>
+
+    <p> this is your email : @Model.Email</p>
+
+    <p> this is your Password : @Model.Password</p>
+
+    <img src=@Model.ProfilePic alt=@Model.Username />
 
 
     <h3> only logged in user can access this page </h3>
