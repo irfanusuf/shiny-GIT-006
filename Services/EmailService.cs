@@ -26,7 +26,7 @@ public class EmailService : IMailService
 
 
 
-    public async Task SendMail(string to, string from, string subject, string body, bool isHtml = false)
+    public async Task SendMail(string to, string subject, string body, bool isHtml = false)
     {
 
         try
@@ -54,6 +54,35 @@ public class EmailService : IMailService
         }
         catch (System.Exception ex)
         {
+
+            throw new InvalidOperationException($"Failed to send email: {ex.Message}", ex);
+        }
+
+
+    }
+
+
+
+    public async Task SendMail(string to, string from, string subject, string body, bool isHtml = false)
+    {
+
+        try
+        {
+          var client = new SmtpClient(smtpServer, smtpPort)
+            {
+                Credentials = new NetworkCredential(smtpUsername, smtpPassword),
+                EnableSsl = true
+
+            };
+
+            var mailMessage = new MailMessage(from ,to , subject , body );
+
+            await client.SendMailAsync(mailMessage);
+        
+      }
+        catch (System.Exception ex)
+        {
+
 
             throw new InvalidOperationException($"Failed to send email: {ex.Message}", ex);
         }

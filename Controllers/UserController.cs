@@ -145,15 +145,13 @@ namespace P1WebMVC.Controllers
 
 
         [HttpGet]
-
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
 
-            [HttpPost]
-
+        [HttpPost]
         public async Task<ActionResult> ForgotPassword(string Email)
         {
             // email per otp send kerna hai ager user hoga 
@@ -167,14 +165,18 @@ namespace P1WebMVC.Controllers
                     return View();
                 }
 
+                // token which is valid for 5 minutes
+                var token = tokenService.CreateToken(user.UserId, user.Email, user.Username);
+
+                var passwordResetLink = $"http://localhost:5130/user/updatePassword?token={token}";
+
                 // email send kerna 
+                await mailService.SendMail(Email, "Password Reset link ", $"We have accepted your request for password update ,kindly find the password  reset link below : {passwordResetLink}   ", false);
 
-                await mailService.SendMail(Email, "", "OTP for forgot password", "5678", false);
 
+                ViewBag.SuccessMessage= "Email  with password reset link  sent to you address successfully !";
 
-                TempData["SuccessMessage"] = "Email  with OTP sent to you address successfully !";
-
-                return RedirectToAction("UpdatePassword");
+                return View();
 
 
             }
@@ -188,12 +190,70 @@ namespace P1WebMVC.Controllers
 
 
         [HttpGet]
-        public ActionResult UpdatePassword()
+        public ActionResult UpdatePassword(string token)
+        {
+            try
+            {
+                var userId = tokenService.VerifyTokenAndGetId(token);
+                var model = new
+                {
+                    userId
+                };  
+                // DTO  in the view 
+                return View(model);
+            }
+            catch (System.Exception)
+            {
+                ViewBag.ErrorMessage = "Sorry the password reset link is  Expired , Kindly request for  new link !";
+                return View();
+            }
+        
+        }
+
+
+
+        [HttpPost]
+        public async Task<ActionResult> UpdatePassword(string Password, string ConfirmPassword, Guid userId)
         {
 
+            if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword))
+            {
+                ViewBag.ErrorMessage("password & confirmPassword both are required");
+                return View();
+            }
 
-            return View();
+            if (Password != ConfirmPassword)
+            {
+                ViewBag.ErrorMessage("Passwords Does not match");
+                return View();
+            }
+
+            var user = await dbContext.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+             TempData["ErrorMessage"] = "User not Found !";
+             return RedirectToAction("login");
+            }
+
+            var encryptPass = BCrypt.Net.BCrypt.HashPassword(Password);
+
+            user.Password = encryptPass;
+
+            await dbContext.SaveChangesAsync();
+
+
+            TempData["SuccessMessage"] = "Password Changed Successfully !";
+
+            return RedirectToAction("login");
+
+
         }
+
+
+
+
+
 
 
         // dashboard secure // tomorrow

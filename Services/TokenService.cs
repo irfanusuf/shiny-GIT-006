@@ -46,6 +46,38 @@ public class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
+
+
+    public string CreateToken(Guid userId, string email, string username)
+    {
+        // instance of main class 
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        // encoding of the secret key AscII 
+        var key = Encoding.ASCII.GetBytes(secretKey);
+
+        // creation of payload 
+        var payload = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(
+           [
+
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Name, username)
+           ]),
+
+            Expires = DateTime.Now.AddMinutes(5),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        var token = tokenHandler.CreateToken(payload);
+
+        return tokenHandler.WriteToken(token);
+    }
+
+
+
     public bool VerifyToken(string token)
     {
 
