@@ -8,21 +8,73 @@
 }
 
 
+<style>
+    .img_container {
+
+        border: 1px solid grey;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+
+
+    }
+
+    .image_thumbnail {
+
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+    }
+</style>
+
+
 
 
 <div>
 
     <h1> Welcome @Model.Username.ToUpper() this is the personalized secure dashboard for you </h1>
 
-    <p> this is your userId : @Model.UserId</p>
-
-    <p> this is your email : @Model.Email</p>
-
-    <p> this is your Password : @Model.Password</p>
-
-    <img src=@Model.ProfilePic alt=@Model.Username />
-
-
     <h3> only logged in user can access this page </h3>
+
+
+    <div class="img_container">
+
+        @{if(@Model.ProfilePic == null){
+
+
+            <img class="img-thumbnail image_thumbnail" src="https://res.cloudinary.com/dbo0xmbd7/image/upload/v1757921401/P1WEBMVC/Screenshot_From_2025-09-15_12-58-26.png" />
+
+        }else{
+
+                 <img class="img-thumbnail image_thumbnail" src=@Model.ProfilePic/>
+
+        }
+        
+       
+        
+    }
+
+        
+
+    </div>
+
+
+
+
+    <form class="w-25 mt-3" method="post" enctype="multipart/form-data" asp-controller="User" asp-action="UploadProfile"
+        asp-route-userId="@Model.UserId">
+        <label class="mb-1"> Upload your Profile</label>
+        <input class="form-control" type="file" name="image" />
+        <button class="btn btn-sm btn-secondary mt-2"> Upload</button>
+    </form>
+
+
+
+
+
+
+
+
+
 
 </div>

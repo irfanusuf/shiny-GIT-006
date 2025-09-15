@@ -14,7 +14,7 @@
 
      dotnet add package BCrypt.Net-Next --version 4.0.3
     
-    dotnet add package CloudinaryDotNet --version 1.27.5
+    dotnet add package CloudinaryDotNet --version 1.27.7
 
     dotnet add package Razorpay --version 3.1.4
 

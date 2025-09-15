@@ -18,6 +18,7 @@ builder.Services.AddDbContext<SqlDbContext>((options) => options.UseSqlServer(bu
 // dependency Injection 
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddSingleton<IMailService, EmailService>();
+builder.Services.AddSingleton<ICloudinaryService , CloudinaryService>();
 
 
 var app = builder.Build();

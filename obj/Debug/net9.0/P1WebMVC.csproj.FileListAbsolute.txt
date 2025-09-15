@@ -460,3 +460,5 @@
 /home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.pdb
 /home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.genruntimeconfig.cache
 /home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/obj/Debug/net9.0/ref/P1WebMVC.dll
+/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/bin/Debug/net9.0/CloudinaryDotNet.dll
+/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/bin/Debug/net9.0/Newtonsoft.Json.dll

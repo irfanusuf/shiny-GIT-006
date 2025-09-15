@@ -16,11 +16,14 @@ namespace P1WebMVC.Controllers
 
         private readonly IMailService mailService;
 
-        public UserController(SqlDbContext dbContext, ITokenService tokenService, IMailService mailService)
+        private readonly ICloudinaryService cloudinaryService;
+
+        public UserController(SqlDbContext dbContext, ITokenService tokenService, IMailService mailService, ICloudinaryService cloudinaryService)
         {
             this.dbContext = dbContext;
             this.tokenService = tokenService;
             this.mailService = mailService;
+            this.cloudinaryService = cloudinaryService;
         }
 
 
@@ -174,7 +177,7 @@ namespace P1WebMVC.Controllers
                 await mailService.SendMail(Email, "Password Reset link ", $"We have accepted your request for password update ,kindly find the password  reset link below : {passwordResetLink}   ", false);
 
 
-                ViewBag.SuccessMessage= "Email  with password reset link  sent to you address successfully !";
+                ViewBag.SuccessMessage = "Email  with password reset link  sent to you address successfully !";
 
                 return View();
 
@@ -195,10 +198,12 @@ namespace P1WebMVC.Controllers
             try
             {
                 var userId = tokenService.VerifyTokenAndGetId(token);
+
+
                 var model = new
                 {
                     userId
-                };  
+                };
                 // DTO  in the view 
                 return View(model);
             }
@@ -207,7 +212,7 @@ namespace P1WebMVC.Controllers
                 ViewBag.ErrorMessage = "Sorry the password reset link is  Expired , Kindly request for  new link !";
                 return View();
             }
-        
+
         }
 
 
@@ -232,8 +237,8 @@ namespace P1WebMVC.Controllers
 
             if (user == null)
             {
-             TempData["ErrorMessage"] = "User not Found !";
-             return RedirectToAction("login");
+                TempData["ErrorMessage"] = "User not Found !";
+                return RedirectToAction("login");
             }
 
             var encryptPass = BCrypt.Net.BCrypt.HashPassword(Password);
@@ -251,12 +256,6 @@ namespace P1WebMVC.Controllers
         }
 
 
-
-
-
-
-
-        // dashboard secure // tomorrow
         [HttpGet]
 
         public async Task<ActionResult> Dashboard()
@@ -289,13 +288,68 @@ namespace P1WebMVC.Controllers
 
 
             }
-            catch (System.Exception ex) 
+            catch (System.Exception ex)
             {
                 ViewBag.ErrorMessage = ex.Message;
                 return View();
             }
-     
+
         }
+
+        [HttpPost]
+
+        public async Task<ActionResult> UploadProfile(IFormFile image)
+        {
+
+            // actual upload 
+
+              if (image == null || image.Length == 0)
+                 {
+                    TempData["ErrorMessage"] = "Image is missing !";
+                return RedirectToAction("dashboard");
+                 }
+
+            var token = HttpContext.Request.Cookies["authToken"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                TempData["ErrorMessage"] = "Forbidden to access the page";
+                return RedirectToAction("login");
+            }
+
+            var userId = tokenService.VerifyTokenAndGetId(token);
+
+            if (userId == Guid.Empty)
+            {
+                TempData["ErrorMessage"] = "Unauthorized to access the page";
+                return RedirectToAction("login");
+            }
+
+
+            var user = await dbContext.Users.FindAsync(userId);
+
+            if (user != null)
+            {
+
+                var SecureUrl = cloudinaryService.UploadImage(image);
+
+                user.ProfilePic = SecureUrl;
+
+                await dbContext.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Profile Pic uploaded Successfully !";
+                return RedirectToAction("Dashboard");
+
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Some Error Kindly try again after sometime !!";
+
+                return RedirectToAction("Dashboard");
+            }
+
+        }
+
     }
 }
 
