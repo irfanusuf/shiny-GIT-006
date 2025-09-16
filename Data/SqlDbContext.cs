@@ -8,12 +8,19 @@ namespace P1WebMVC.Data;
 public class SqlDbContext : DbContext
 {
 
-
     public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options) { }
 
     // entities
-    
-     public DbSet<User> Users { get; set; }
+
+    public DbSet<User> Users { get; set; }
+
+    public DbSet<Post> Posts { get; set; }
+
+    public DbSet<Comment> Comments { get; set; }
+     
+
+
+     // fluent api so that we will have fine control on relationships  // tommorow 
 
 
 }

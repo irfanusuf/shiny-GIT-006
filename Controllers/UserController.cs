@@ -291,7 +291,7 @@ namespace P1WebMVC.Controllers
             catch (System.Exception ex)
             {
                 ViewBag.ErrorMessage = ex.Message;
-                return View();
+                return View("Error");
             }
 
         }
@@ -331,7 +331,7 @@ namespace P1WebMVC.Controllers
             if (user != null)
             {
 
-                var SecureUrl = cloudinaryService.UploadImage(image);
+                var SecureUrl = await cloudinaryService.UploadImageAsync(image);
 
                 user.ProfilePic = SecureUrl;
 

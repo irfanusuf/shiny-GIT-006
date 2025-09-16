@@ -7,7 +7,7 @@ public interface ICloudinaryService
 
     public string UploadImage(IFormFile image);
 
-    public string UploadImageAsync(IFormFile image);
+    public  Task<string> UploadImageAsync(IFormFile image);
 
 
     public string UploadVideo(IFormFile video);

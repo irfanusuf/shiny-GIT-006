@@ -32,41 +32,57 @@
 
 <div>
 
-    <h1> Welcome @Model.Username.ToUpper() this is the personalized secure dashboard for you </h1>
 
-    <h3> only logged in user can access this page </h3>
-
+    <div class="d-flex align-items-center mt-3">
+     
 
     <div class="img_container">
 
         @{if(@Model.ProfilePic == null){
-
-
             <img class="img-thumbnail image_thumbnail" src="https://res.cloudinary.com/dbo0xmbd7/image/upload/v1757921401/P1WEBMVC/Screenshot_From_2025-09-15_12-58-26.png" />
-
         }else{
-
-                 <img class="img-thumbnail image_thumbnail" src=@Model.ProfilePic/>
-
-        }
-        
-       
-        
+            <img class="img-thumbnail image_thumbnail" src="@Model.ProfilePic"/>
+        }         
     }
+    </div>
 
-        
+    <h3 class="ms-3"> @Model.Username.ToUpper()  </h1>
 
     </div>
 
+   
 
 
 
-    <form class="w-25 mt-3" method="post" enctype="multipart/form-data" asp-controller="User" asp-action="UploadProfile"
-        asp-route-userId="@Model.UserId">
-        <label class="mb-1"> Upload your Profile</label>
+    <div class="d-flex align-items-center">
+    
+    
+        <form class="w-25 mt-3" method="post" enctype="multipart/form-data" asp-controller="User" asp-action="UploadProfile">
+
         <input class="form-control" type="file" name="image" />
-        <button class="btn btn-sm btn-secondary mt-2"> Upload</button>
+        <button class="btn btn-sm btn-secondary mt-2"> 
+        
+        @{
+         if(@Model.ProfilePic != null){
+            <span> Update Profile pic</span>
+         }else{
+            <span> Upload profile pic</span>
+         }
+
+        }
+        </button>
     </form>
+
+
+
+    <form method="post">
+    
+    <button class="btn btn-secondary btn-sm"> Create Post</button>
+    
+    </form>
+    
+    
+    </div>
 
 
 

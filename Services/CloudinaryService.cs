@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using P1WebMVC.Interfaces;
@@ -26,8 +27,6 @@ public class CloudinaryService : ICloudinaryService
     {
         try
         {
-
-
             if (image == null || image.Length == 0)
             {
                 throw new ArgumentException("Image is missing.");
@@ -70,13 +69,54 @@ public class CloudinaryService : ICloudinaryService
     }
 
 
-
-
-
-    public string UploadImageAsync(IFormFile image)
+    public async Task<string> UploadImageAsync(IFormFile image)
     {
-        throw new NotImplementedException();
+
+        try
+        {
+            if (image == null || image.Length == 0)
+            {
+                throw new ArgumentException("Image is missing.");
+            }
+
+            var stream = image.OpenReadStream();
+
+
+            var imageParams = new ImageUploadParams()
+            {
+                File = new FileDescription(image.FileName, stream),
+                UseFilename = true,
+                UniqueFilename = false,
+                Overwrite = true,
+                Folder = "P1WEBMVC"
+
+            };
+
+            var upload = await cloudinary.UploadAsync(imageParams);
+
+            if (upload.Error != null)
+            {
+                throw new InvalidOperationException($"Upload failed ! {upload.Error.Message}");
+            }
+
+            return upload.SecureUrl.ToString();
+
+        }
+        catch (System.Exception ex)
+        {
+
+            throw new InvalidOperationException(ex.Message);
+        }
     }
+
+
+
+
+
+
+
+
+
 
     public string UploadVideo(IFormFile video)
     {
