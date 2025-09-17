@@ -17,10 +17,20 @@ public class SqlDbContext : DbContext
     public DbSet<Post> Posts { get; set; }
 
     public DbSet<Comment> Comments { get; set; }
-     
 
 
-     // fluent api so that we will have fine control on relationships  // tommorow 
+    // fluent api so that we will have fine control on relationships  
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Post>()
+        .HasOne(p => p.User)    // post ka ek user hai jis se woh belong kerta hai
+        .WithMany(u => u.Posts)  // user kay bahiut sarey posts hai 
+        .HasForeignKey(p => p.UserId)   // post ke ander userid forign key hai 
+        .OnDelete(DeleteBehavior.Cascade);   // user delete kerdiya /toh sarein ppost delete hojayegye 
+
+    }
+
+    
 
 
 }
