@@ -1,0 +1,41 @@
+﻿@model P1WebMVC.Models.ViewModels.ExploreViewModel
+
+@{
+
+    ViewData[index: "title"] = "Explore";
+}
+
+
+
+
+
+
+
+
+
+
+<div class="container mt-5">
+
+<h3>   Explore </h1>
+
+
+<div class="d-flex justify-content-center gap-3 flex-wrap">
+@{
+
+   foreach(Post post in Model.Posts){
+
+        <div>
+        
+            <img src="@post.PostpicURL" width="400" height="400"/>
+        
+        
+        </div>
+   }
+
+}
+
+</div>
+
+
+</div>
+

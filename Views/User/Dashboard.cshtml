@@ -105,15 +105,10 @@ Add Post
                
             <textarea  class="form-control" name="PostCaption"> Your Caption   </textarea>
 
-       <button  type="submit" class="btn btn-sm btn-secondary mt-3" > Upload </button>
+            <button  type="submit" class="btn btn-sm btn-secondary mt-3" > Upload </button>
             </form>
 
-         
-
-
-
       </div>
-
 
 
       @* <div class="modal-footer">
@@ -126,6 +121,31 @@ Add Post
 
 
 
+</div>
+
+
+
+
+
+
+<div class="container mt-5" >
+
+  <h1> Posts</h1>
+
+  <div class="d-flex gap-3 justify-content-center">
+    @{
+     foreach(Post post in @Model.Posts){
+
+        <div>
+          <img  src="@post.PostpicURL"  width="400" height="400"/>
+
+          <p class="text-muted mt-2" > @post.PostCaption </p>
+        </div>
+     }
+
+  } 
+  
+  </div>
 
 
 

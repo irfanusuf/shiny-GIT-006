@@ -16,8 +16,6 @@ public class Post
     public User? User { get; set; }    // navigation property 
 
 
-
-
     public string? PostpicURL { get; set; }
     public string? PostVideoURL { get; set; }
     public required string PostCaption { get; set; }

@@ -281,7 +281,7 @@ namespace P1WebMVC.Controllers
 
                 else
                 {
-                    var user = await dbContext.Users.FindAsync(userId);
+                    var user = await dbContext.Users.Include(user => user.Posts).FirstOrDefaultAsync(up => up.UserId == userId);
                     // DTO
                     return View(user);
                 }
