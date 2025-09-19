@@ -18,10 +18,10 @@ namespace P1WebMVC.Controllers
         }
         public async Task<ActionResult> Index()
         {
-
             try
             {
-                var posts = await dbContext.Posts.Where(posts => posts.PostCaption != null).ToListAsync();
+                var posts = await dbContext.Posts.Include(posts => posts.Comments).Where(posts => posts.PostCaption != null).ToListAsync();
+
                 var exploreViewModel = new ExploreViewModel
                 {
                      Posts = posts

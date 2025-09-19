@@ -15,7 +15,7 @@ namespace P1WebMVC.Controllers
         private readonly ICloudinaryService cloudinaryService;
         public PostController(SqlDbContext dbContext, ITokenService tokenService, ICloudinaryService cloudinaryService)
         {
-            
+
             this.dbContext = dbContext;
             this.tokenService = tokenService;
             this.cloudinaryService = cloudinaryService;
@@ -25,7 +25,7 @@ namespace P1WebMVC.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> CreatePost(Post post, IFormFile image , Guid userId)
+        public async Task<ActionResult> CreatePost(Post post, IFormFile image, Guid userId)
         {
 
             try
@@ -57,7 +57,7 @@ namespace P1WebMVC.Controllers
 
 
                 TempData["SuccessMessage"] = "Post uploaded Succesfully !";
-                 
+
                 return RedirectToAction("Dashboard", "User");
 
             }
@@ -68,6 +68,25 @@ namespace P1WebMVC.Controllers
             }
 
         }
+
+
+        [HttpPost]
+
+        public async Task<ActionResult> AddComment(Guid postId , Comment comment)
+        {
+
+
+            comment.PostId = postId;
+
+            await dbContext.Comments.AddAsync(comment);
+
+            await dbContext.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Comment Added";
+
+            return RedirectToAction("Index", "Explore");
+        }
+
 
     }
 }

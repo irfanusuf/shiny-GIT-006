@@ -16,7 +16,7 @@
 
 <div class="container mt-5">
 
-<h3>   Explore </h1>
+<h3>   Explore </h3>
 
 
 <div class="d-flex justify-content-center gap-3 flex-wrap">
@@ -24,16 +24,73 @@
 
    foreach(Post post in Model.Posts){
 
-        <div>
+
         
-            <img src="@post.PostpicURL" width="400" height="400"/>
+
+    <div data-bs-toggle="modal" data-bs-target="#Modal-@post.PostId">   <img src="@post.PostpicURL" width="400" height="400"/>  </div>
+            
         
+
+
+<!-- Modal -->
+<div class="modal fade" id="Modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Upload your Post</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body">
+
+       <img src="@post.PostpicURL" width="460" height="460"/> 
+
+       <p> @post.PostCaption </p>
+
+
+
+        <form method="post" asp-controller="Post" asp-action="AddComment" asp-route-postId ="@post.PostId">
         
-        </div>
+            <input class="form-control" placeholder="Your thoughts" name="CommentText" />
+
+            <button type="submit" class="btn btn-sm btn-secondary mt-3"> Comment </button>
+        
+        </form>
+
+        @if(post.Comments.Count > 0){
+          @foreach(Comment comment in post.Comments){
+
+            <p> @comment.CommentText </p>
+
+        }
+        }else{
+
+
+            <div class="d-flex justify-content-center">
+            
+            <p class="text-muted" > No Comments yet  </p>
+            
+            </div>
+        }
+
+
+    
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+   
    }
 
 }
-
+                    
 </div>
 
 
