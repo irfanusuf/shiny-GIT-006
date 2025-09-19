@@ -75,6 +75,9 @@ namespace P1WebMVC.Controllers
         public async Task<ActionResult> AddComment(Guid postId , Comment comment)
         {
 
+                // fetch userid // token // redirect login // register 
+
+
 
             comment.PostId = postId;
 
