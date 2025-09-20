@@ -47,9 +47,14 @@ namespace P1WebMVC.Migrations
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("CommentId");
 
                     b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -62,10 +67,6 @@ namespace P1WebMVC.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.PrimitiveCollection<string>("Likes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostCaption")
                         .IsRequired()
@@ -125,24 +126,63 @@ namespace P1WebMVC.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("PostUser", b =>
+                {
+                    b.Property<Guid>("LikesGivenPostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LikesUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikesGivenPostId", "LikesUserId");
+
+                    b.HasIndex("LikesUserId");
+
+                    b.ToTable("PostUser");
+                });
+
             modelBuilder.Entity("P1WebMVC.Models.Comment", b =>
                 {
                     b.HasOne("P1WebMVC.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("P1WebMVC.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("P1WebMVC.Models.Post", b =>
                 {
                     b.HasOne("P1WebMVC.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PostUser", b =>
+                {
+                    b.HasOne("P1WebMVC.Models.Post", null)
+                        .WithMany()
+                        .HasForeignKey("LikesGivenPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("P1WebMVC.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("LikesUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("P1WebMVC.Models.Post", b =>
@@ -152,6 +192,8 @@ namespace P1WebMVC.Migrations
 
             modelBuilder.Entity("P1WebMVC.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618

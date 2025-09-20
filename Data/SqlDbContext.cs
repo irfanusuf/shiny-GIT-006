@@ -28,6 +28,33 @@ public class SqlDbContext : DbContext
         .HasForeignKey(p => p.UserId)   // post ke ander userid forign key hai 
         .OnDelete(DeleteBehavior.Cascade);   // user delete kerdiya /toh sarein ppost delete hojayegye 
 
+
+
+        modelBuilder.Entity<Comment>()
+        .HasOne(c => c.Post)     // comment belong kerta hai ek post se
+        .WithMany(p => p.Comments)   // us post per bahut sarein comments hai 
+        .HasForeignKey(c => c.PostId)  // comment kay ander post id ek fk hai
+        .OnDelete(DeleteBehavior.Restrict);  
+
+
+
+        modelBuilder.Entity<Comment>()
+        .HasOne(c => c.User)     // comment belong kerta hai ek user se
+        .WithMany(u => u.Comments)   // us user key bahut sarein comments hai 
+        .HasForeignKey(c => c.UserId)  // comment kay ander user id ek fk hai
+        .OnDelete(DeleteBehavior.Restrict);  
+
+
+
+        // error // bug //  
+
+        // correct way is to create junction model 
+
+        // modelBuilder.Entity<User>()
+        // .HasMany(u => u.LikesGiven)    
+        // .WithMany(p => p.Likes);
+
+
     }
 
     

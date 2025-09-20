@@ -19,7 +19,7 @@ public class Post
     public string? PostpicURL { get; set; }
     public string? PostVideoURL { get; set; }
     public required string PostCaption { get; set; }
-    public ICollection<Guid> Likes { get; set; } = [];
+    public ICollection<User> Likes { get; set; } = [];
     public ICollection<Comment> Comments { get; set; } = [];  
     public DateTime CreatedOn { get; set; } = DateTime.Now; 
     public DateTime UpdatedOn { get; set; } = DateTime.Now; 

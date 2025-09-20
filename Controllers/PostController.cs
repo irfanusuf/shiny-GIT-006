@@ -75,11 +75,27 @@ namespace P1WebMVC.Controllers
         public async Task<ActionResult> AddComment(Guid postId , Comment comment)
         {
 
-                // fetch userid // token // redirect login // register 
+            // fetch userid // token // redirect login // register 
+               var token = HttpContext.Request.Cookies["authToken"];
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    TempData["ErrorMessage"] = "Forbidden to access the page";
+                    return RedirectToAction("Login" , "User");
+                }
+
+                var userId = tokenService.VerifyTokenAndGetId(token);
+
+                if (userId == Guid.Empty)
+                {
+                    TempData["ErrorMessage"] = "Unauthorized to access the page";
+                    return RedirectToAction("Login" , "User");
+                }
 
 
 
-            comment.PostId = postId;
+            comment.UserId = userId;    /// fetched userId from token 
+            comment.PostId = postId;   // query param
 
             await dbContext.Comments.AddAsync(comment);
 

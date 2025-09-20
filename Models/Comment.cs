@@ -19,6 +19,10 @@ public class Comment
     public Post?  Post { get; set; }     // navigation properrty  // belongs to this Post 
 
 
+    public Guid UserId { get; set; }   ///fk
+    [ForeignKey("UserId")]
+    public User ? User { get; set; }    // navigation property belongs to this user
+
 
     public required string CommentText { get; set; }
     public bool FlaggedForReport { get; set; } = false;
