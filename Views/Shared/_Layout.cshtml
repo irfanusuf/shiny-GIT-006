@@ -20,18 +20,28 @@
 
 <header>
   <!-- Navbar -->
+
+
   <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
     <div class="container-fluid">
+
       <!-- Brand on the left -->
       <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
         <i class="bi bi-stars me-2"></i> Trinkle Buddies
       </a>
+
+
       <!-- Navbar toggler for mobile -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSocialApp" aria-controls="navbarSocialApp" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+
       <!-- Navbar links and account section -->
       <div class="collapse navbar-collapse" id="navbarSocialApp">
+
+
+
         <!-- Left side links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -45,6 +55,9 @@
           </li>
         </ul>
         <!-- Right side account section -->
+
+
+
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
           <li class="nav-item me-2">
             <a class="nav-link" href="/messages" title="Messages">
@@ -62,9 +75,10 @@
               <span class="ms-2 fw-semibold">  John Doe </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownProfile">
-              <li><a class="dropdown-item" href="/user/Dashboard"><i class="bi bi-person"></i> My Profile</a></li>
+              <li><a class="dropdown-item " href="/user/Dashboard"><i class="bi bi-person"></i> My Profile</a></li>
               <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear"></i> Settings</a></li>
               <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/user/login"><i class="bi bi-box-arrow-right"></i> Login</a></li>
               <li><a class="dropdown-item" href="/account/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
           </li>
@@ -75,7 +89,7 @@
   <!-- Navbar -->
 </header>
 
-</header>
+
 
     @{
         if (@TempData["SuccessMessage"] != null)
@@ -118,10 +132,8 @@
 
 
 
-    <div class="container">
-        <main role="main" class="pb-3" style="min-height: 90vh;">
-            @RenderBody()
-        </main>
+    <div  style="display : flex ; min-height : 90vh; background: linear-gradient(135deg, #ddb4c0 0%, #b89bd6 50%, #ffffff 100%); border-radius: 1rem;">
+        @RenderBody()
     </div>
 
 
