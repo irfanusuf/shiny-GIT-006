@@ -14,63 +14,60 @@
 
 
 
-<div class="container mt-5">
+<div class="container mt-5 mx-auto">
 
 <h3>   Explore </h3>
 
 
-<div class="d-flex justify-content-center gap-3 flex-wrap">
+<div class="row mx-auto">
 @{
 
    foreach(Post post in Model.Posts){
 
 
-        
+    <div data-bs-toggle="modal" data-bs-target="#Modal-@post.PostId" class="col-lg-4"  >   
+    
+    <img src="@post.PostpicURL" class="img-fluid" />  
 
-    <div data-bs-toggle="modal" data-bs-target="#Modal-@post.PostId">   <img src="@post.PostpicURL" width="400" height="400"/>  </div>
+    <div class="d-flex gap-3">
+      
+       <div>
+       <i class="bi bi-suit-heart text-danger  " style="font-size: 22px; font-style : bold" ></i>
+
+            <p class="mb-0 ms-1 " style="font-weight : 500"> @post.Likes.Count </p>
+      </div>
+
+
+          <div>
+       <i class="bi bi-chat-square-dots text-success  " style="font-size: 22px; font-style : bold" ></i>
+            <p class="mb-0 ms-1" style="font-weight : 500"> @post.Comments.Count </p>
+      </div>
+      
+    </div>
+
+      <p class="" > @post.PostCaption </p>
+
+
+    </div>
             
         
-
-
 <!-- Modal -->
-<div class="modal fade" id="Modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="Modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Upload your Post</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> @post.User?.Username</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
 
       <div class="modal-body">
 
-       <img src="@post.PostpicURL" width="460" height="460"/> 
+       <img src="@post.PostpicURL" width="460" height="460"/>
 
-       <p> @post.PostCaption </p>
+       <p class="w-100" > @post.PostCaption </p> 
 
-
-
-      <div class="d-flex gap-3">
-      
-
-
-       <div>
-       <i class="bi bi-suit-heart text-danger  " style="font-size: 22px; font-style : bold" ></i>
-
-            <p class="mb-0 ms-1"> @post.Likes.Count </p>
-      </div>
-
-
-          <div>
-       <i class="bi bi-chat-square-dots text-success  " style="font-size: 22px; font-style : bold" ></i>
-            <p class="mb-0 ms-1"> @post.Comments.Count </p>
-      </div>
-      
-      </div>
-
-
-
-
+       
         <div class="mt-3">
 
             @if(post.Comments.Count > 0){
@@ -112,13 +109,9 @@
 
     </div>
   </div>
-</div>
+    </div>
 
-
-
-   
    }
-
 }
                     
 </div>
