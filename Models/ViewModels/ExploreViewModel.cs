@@ -9,5 +9,7 @@ public class ExploreViewModel
 
     public ICollection<User> Users { get; set; } = [];
 
+    public User? LoggedInUser { get; set; }
+
 
 }

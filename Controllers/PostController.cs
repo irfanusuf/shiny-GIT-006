@@ -72,25 +72,25 @@ namespace P1WebMVC.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult> AddComment(Guid postId , Comment comment)
+        public async Task<ActionResult> AddComment(Guid postId, Comment comment)
         {
 
             // fetch userid // token // redirect login // register 
-               var token = HttpContext.Request.Cookies["authToken"];
+            var token = HttpContext.Request.Cookies["authToken"];
 
-                if (string.IsNullOrEmpty(token))
-                {
-                    TempData["ErrorMessage"] = "Forbidden to access the page";
-                    return RedirectToAction("Login" , "User");
-                }
+            if (string.IsNullOrEmpty(token))
+            {
+                TempData["ErrorMessage"] = "Forbidden to access the page";
+                return RedirectToAction("Login", "User");
+            }
 
-                var userId = tokenService.VerifyTokenAndGetId(token);
+            var userId = tokenService.VerifyTokenAndGetId(token);
 
-                if (userId == Guid.Empty)
-                {
-                    TempData["ErrorMessage"] = "Unauthorized to access the page";
-                    return RedirectToAction("Login" , "User");
-                }
+            if (userId == Guid.Empty)
+            {
+                TempData["ErrorMessage"] = "Unauthorized to access the page";
+                return RedirectToAction("Login", "User");
+            }
 
 
 
@@ -105,6 +105,51 @@ namespace P1WebMVC.Controllers
 
             return RedirectToAction("Index", "Explore");
         }
+
+
+        [HttpGet]
+
+        public async Task<ActionResult> Like(Guid postId)
+        {
+
+            // fetch userid // token // redirect to  login if token is not present or not valid 
+            var token = HttpContext.Request.Cookies["authToken"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                TempData["ErrorMessage"] = "Forbidden to access the page";
+                return RedirectToAction("Login", "User");
+            }
+
+            var userId = tokenService.VerifyTokenAndGetId(token);
+
+            if (userId == Guid.Empty)
+            {
+                TempData["ErrorMessage"] = "Unauthorized to access the page";
+                return RedirectToAction("Login", "User");
+            }
+
+            //logic for like
+
+            var user = await dbContext.Users.FindAsync(userId);
+
+            var post = await dbContext.Posts.FindAsync(postId);
+
+
+            post.Likes.Add(user);
+
+            await dbContext.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Like Added";
+
+            return RedirectToAction("Index", "Explore");
+
+        }
+
+
+    
+
+
 
 
     }

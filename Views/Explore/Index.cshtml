@@ -8,12 +8,6 @@
 
 
 
-
-
-
-
-
-
 <div class="container mt-5 mx-auto">
 
 <h3>   Explore </h3>
@@ -25,21 +19,33 @@
    foreach(Post post in Model.Posts){
 
 
-    <div data-bs-toggle="modal" data-bs-target="#Modal-@post.PostId" class="col-lg-4"  >   
+    <div  class="col-lg-4"  >   
     
     <img src="@post.PostpicURL" class="img-fluid" />  
 
     <div class="d-flex gap-3">
       
-       <div>
-       <i class="bi bi-suit-heart text-danger  " style="font-size: 22px; font-style : bold" ></i>
+      <div>
 
-            <p class="mb-0 ms-1 " style="font-weight : 500"> @post.Likes.Count </p>
+        @if(Model.LoggedInUser != null){
+
+          @if(post.Likes.Contains(Model.LoggedInUser)){
+          <a href= "/post/Removelike?postId=@post.PostId">
+             <i class="bi bi-suit-heart-fill text-danger  " style="font-size: 22px; font-style : bold" ></i> 
+          </a> 
+          }else{
+
+            <a href= "/post/like?postId=@post.PostId"> 
+             <i class="bi bi-suit-heart text-danger  " style="font-size: 22px; font-style : bold" ></i> 
+            </a> 
+          }
+        }
+          <p class="mb-0 ms-1 " style="font-weight : 500"> @post.Likes.Count </p>
       </div>
 
 
-          <div>
-       <i class="bi bi-chat-square-dots text-success  " style="font-size: 22px; font-style : bold" ></i>
+      <div data-bs-toggle="modal" data-bs-target="#Modal-@post.PostId">
+          <i class="bi bi-chat-square-dots text-success  " style="font-size: 22px; font-style : bold" ></i>
             <p class="mb-0 ms-1" style="font-weight : 500"> @post.Comments.Count </p>
       </div>
       
