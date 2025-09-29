@@ -5,6 +5,7 @@ using Microsoft.Identity.Client;
 using P1WebMVC.Data;
 using P1WebMVC.Interfaces;
 using P1WebMVC.Models;
+using P1WebMVC.Models.ViewModels;
 
 namespace P1WebMVC.Controllers
 {
@@ -13,7 +14,6 @@ namespace P1WebMVC.Controllers
 
         private readonly SqlDbContext dbContext;
         private readonly ITokenService tokenService;
-
         private readonly IMailService mailService;
 
         private readonly ICloudinaryService cloudinaryService;
@@ -32,9 +32,6 @@ namespace P1WebMVC.Controllers
         {
             return View();
         }
-
-
-
 
         [HttpPost]
         public async Task<ActionResult> Register(User user)
@@ -281,9 +278,23 @@ namespace P1WebMVC.Controllers
 
                 else
                 {
-                    var user = await dbContext.Users.Include(user => user.Posts).FirstOrDefaultAsync(up => up.UserId == userId);
+                    var user = await dbContext.Users.FindAsync(userId);
+        
+
+
+                    var posts = await dbContext.Posts
+                    .Include(post => post.Likes)
+                    .Include(posts => posts.Comments)
+                    .Where(post => post.UserId == userId)
+                    .ToListAsync();
+
                     // DTO
-                    return View(user);
+                    var viewModel = new ExploreViewModel
+                    {
+                        Posts = posts,
+                        LoggedInUser = user
+                    };
+                    return View(viewModel);
                 }
 
 

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using P1WebMVC.Data;
 using P1WebMVC.Interfaces;
 using P1WebMVC.Models;
@@ -15,13 +16,10 @@ namespace P1WebMVC.Controllers
         private readonly ICloudinaryService cloudinaryService;
         public PostController(SqlDbContext dbContext, ITokenService tokenService, ICloudinaryService cloudinaryService)
         {
-
             this.dbContext = dbContext;
             this.tokenService = tokenService;
             this.cloudinaryService = cloudinaryService;
-
         }
-
 
 
         [HttpPost]
@@ -71,7 +69,6 @@ namespace P1WebMVC.Controllers
 
 
         [HttpPost]
-
         public async Task<ActionResult> AddComment(Guid postId, Comment comment)
         {
 
@@ -108,7 +105,6 @@ namespace P1WebMVC.Controllers
 
 
         [HttpGet]
-
         public async Task<ActionResult> Like(Guid postId)
         {
 
@@ -136,21 +132,71 @@ namespace P1WebMVC.Controllers
             var post = await dbContext.Posts.FindAsync(postId);
 
 
+            if (post == null || user == null )
+            {
+                TempData["ErrorMessage"] = "Some Error !";
+                return RedirectToAction("Index", "Explore");
+            }
+
             post.Likes.Add(user);
 
             await dbContext.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Like Added";
 
+            TempData["SuccessMessage"] = "Liked the Post !";
             return RedirectToAction("Index", "Explore");
 
         }
 
 
-    
+        [HttpGet]
+        public async Task<ActionResult> RemoveLike(Guid postId)
+        {
 
+            // fetch userid // token // redirect to  login if token is not present or not valid 
+            var token = HttpContext.Request.Cookies["authToken"];
 
+            if (string.IsNullOrEmpty(token))
+            {
+                TempData["ErrorMessage"] = "Forbidden to access the page";
+                return RedirectToAction("Login", "User");
+            }
 
+            var userId = tokenService.VerifyTokenAndGetId(token);
+
+            if (userId == Guid.Empty)
+            {
+                TempData["ErrorMessage"] = "Unauthorized to access the page";
+                return RedirectToAction("Login", "User");
+            }
+
+            //logic for like
+
+            var user = await dbContext.Users.FindAsync(userId);
+
+            var post = await dbContext.Posts.Include(post => post.Likes).FirstOrDefaultAsync(post => post.PostId == postId);
+
+            if (post == null || user == null || post.Likes == null)
+            {
+                TempData["ErrorMessage"] = "Some Error !";
+                return RedirectToAction("Index", "Explore");
+            }
+
+            var remove = post.Likes.Remove(user);
+
+            if (remove)
+            {
+                await dbContext.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Like Removed !";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Some Error !";
+            }
+
+            return RedirectToAction("Index", "Explore");
+
+        }
 
     }
 }
