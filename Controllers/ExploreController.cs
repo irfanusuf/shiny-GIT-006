@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using P1WebMVC.Data;
 using P1WebMVC.Interfaces;
+using P1WebMVC.Middlewares;
 using P1WebMVC.Models;
 using P1WebMVC.Models.ViewModels;
 
@@ -13,38 +14,26 @@ namespace P1WebMVC.Controllers
         // GET: ExploreController
 
         private readonly SqlDbContext dbContext;
-        private readonly ITokenService tokenService;
 
-        public ExploreController(SqlDbContext dbContext, ITokenService tokenService)
+
+        public ExploreController(SqlDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.tokenService = tokenService;
+
         }
+
+        // attribute flag 
+
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             try
             {
-
-                var token = HttpContext.Request.Cookies["authToken"];
-
-                if (string.IsNullOrEmpty(token))
-                {
-                    TempData["ErrorMessage"] = "Forbidden to access the page";
-                    return RedirectToAction("Login", "User");
-                }
-
-                var userId = tokenService.VerifyTokenAndGetId(token);
-
-                if (userId == Guid.Empty)
-                {
-                    TempData["ErrorMessage"] = "Unauthorized to access the page";
-                    return RedirectToAction("Login", "User");
-                }
+                Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
 
 
-
+                
                 var user = await dbContext.Users.FindAsync(userId);
-
 
                 var posts = await dbContext.Posts
                 .Include(posts => posts.Comments)
@@ -58,8 +47,6 @@ namespace P1WebMVC.Controllers
                     LoggedInUser = user
                 };
 
-
-                
                 // DTO
                 return View(exploreViewModel);
             }

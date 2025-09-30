@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using P1WebMVC.Data;
 using P1WebMVC.Interfaces;
+using P1WebMVC.Middlewares;
 using P1WebMVC.Models;
 using P1WebMVC.Models.ViewModels;
 
@@ -253,6 +254,8 @@ namespace P1WebMVC.Controllers
         }
 
 
+
+        [Authorize]
         [HttpGet]
 
         public async Task<ActionResult> Dashboard()
@@ -260,42 +263,29 @@ namespace P1WebMVC.Controllers
 
             try
             {
-                var token = HttpContext.Request.Cookies["authToken"];
 
-                if (string.IsNullOrEmpty(token))
+                Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
+   
+
+                var user = await dbContext.Users.FindAsync(userId);
+
+
+
+                var posts = await dbContext.Posts
+                .Include(post => post.Likes)
+                .Include(posts => posts.Comments)
+                .Where(post => post.UserId == userId)
+                .ToListAsync();
+
+                // DTO
+                var viewModel = new ExploreViewModel
                 {
-                    TempData["ErrorMessage"] = "Forbidden to access the page";
-                    return RedirectToAction("login");
-                }
+                    Posts = posts,
+                    LoggedInUser = user
+                };
 
-                var userId = tokenService.VerifyTokenAndGetId(token);
+                return View(viewModel);
 
-                if (userId == Guid.Empty)
-                {
-                    TempData["ErrorMessage"] = "Unauthorized to access the page";
-                    return RedirectToAction("login");
-                }
-
-                else
-                {
-                    var user = await dbContext.Users.FindAsync(userId);
-        
-
-
-                    var posts = await dbContext.Posts
-                    .Include(post => post.Likes)
-                    .Include(posts => posts.Comments)
-                    .Where(post => post.UserId == userId)
-                    .ToListAsync();
-
-                    // DTO
-                    var viewModel = new ExploreViewModel
-                    {
-                        Posts = posts,
-                        LoggedInUser = user
-                    };
-                    return View(viewModel);
-                }
 
 
             }
@@ -314,11 +304,11 @@ namespace P1WebMVC.Controllers
 
             // actual upload 
 
-              if (image == null || image.Length == 0)
-                 {
-                    TempData["ErrorMessage"] = "Image is missing !";
+            if (image == null || image.Length == 0)
+            {
+                TempData["ErrorMessage"] = "Image is missing !";
                 return RedirectToAction("dashboard");
-                 }
+            }
 
             var token = HttpContext.Request.Cookies["authToken"];
 

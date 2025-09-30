@@ -1,13 +1,15 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using P1WebMVC.Data;
 using P1WebMVC.Interfaces;
+using P1WebMVC.Middlewares;
 using P1WebMVC.Models;
 
 namespace P1WebMVC.Controllers
 {
+    
+    [Authorize]
     public class PostController : Controller
     {
 
@@ -73,23 +75,9 @@ namespace P1WebMVC.Controllers
         {
 
             // fetch userid // token // redirect login // register 
-            var token = HttpContext.Request.Cookies["authToken"];
+         
 
-            if (string.IsNullOrEmpty(token))
-            {
-                TempData["ErrorMessage"] = "Forbidden to access the page";
-                return RedirectToAction("Login", "User");
-            }
-
-            var userId = tokenService.VerifyTokenAndGetId(token);
-
-            if (userId == Guid.Empty)
-            {
-                TempData["ErrorMessage"] = "Unauthorized to access the page";
-                return RedirectToAction("Login", "User");
-            }
-
-
+              Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
 
             comment.UserId = userId;    /// fetched userId from token 
             comment.PostId = postId;   // query param
@@ -109,21 +97,7 @@ namespace P1WebMVC.Controllers
         {
 
             // fetch userid // token // redirect to  login if token is not present or not valid 
-            var token = HttpContext.Request.Cookies["authToken"];
-
-            if (string.IsNullOrEmpty(token))
-            {
-                TempData["ErrorMessage"] = "Forbidden to access the page";
-                return RedirectToAction("Login", "User");
-            }
-
-            var userId = tokenService.VerifyTokenAndGetId(token);
-
-            if (userId == Guid.Empty)
-            {
-                TempData["ErrorMessage"] = "Unauthorized to access the page";
-                return RedirectToAction("Login", "User");
-            }
+              Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
 
             //logic for like
 
@@ -132,7 +106,7 @@ namespace P1WebMVC.Controllers
             var post = await dbContext.Posts.FindAsync(postId);
 
 
-            if (post == null || user == null )
+            if (post == null || user == null)
             {
                 TempData["ErrorMessage"] = "Some Error !";
                 return RedirectToAction("Index", "Explore");
@@ -154,22 +128,7 @@ namespace P1WebMVC.Controllers
         {
 
             // fetch userid // token // redirect to  login if token is not present or not valid 
-            var token = HttpContext.Request.Cookies["authToken"];
-
-            if (string.IsNullOrEmpty(token))
-            {
-                TempData["ErrorMessage"] = "Forbidden to access the page";
-                return RedirectToAction("Login", "User");
-            }
-
-            var userId = tokenService.VerifyTokenAndGetId(token);
-
-            if (userId == Guid.Empty)
-            {
-                TempData["ErrorMessage"] = "Unauthorized to access the page";
-                return RedirectToAction("Login", "User");
-            }
-
+             Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
             //logic for like
 
             var user = await dbContext.Users.FindAsync(userId);
