@@ -1,5 +1,11 @@
 ﻿
-@model P1WebMVC.Models.ViewModels.ExploreViewModel
+@{
+ 
+ User? user = Context.Items[key: "user"] as User;
+
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +66,9 @@
 
 
 
+        @if(user != null){
+
+      
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
           <li class="nav-item me-2">
             <a class="nav-link" href="/messages" title="Messages">
@@ -73,18 +82,17 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://res.cloudinary.com/dbo0xmbd7/image/upload/v1757921078/P1WEBMVC/Screenshot_From_2025-09-15_12-54-13.png" alt="Profile" class="rounded-circle" width="32" height="32" style="object-fit:cover;">
+              <img src="@user?.ProfilePic" alt="Profile" class="rounded-circle" width="32" height="32" style="object-fit:cover;">
 
 
               <span class="ms-2 fw-semibold"> 
 
-                 @(Model?.LoggedInUser?.Username)
+                 @user?.Username
 
               </span>
 
 
             </a>
-
 
 
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownProfile">
@@ -96,6 +104,10 @@
             </ul>
           </li>
         </ul>
+
+         }
+
+
       </div>
     </div>
   </nav>
@@ -105,7 +117,7 @@
 
 <div style="position: absolute; right : 0" >
     @{
-        if (@TempData["SuccessMessage"] != null)
+        if (@TempData[key: "SuccessMessage"] != null)
         {
 
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -115,7 +127,7 @@
         }
 
 
-        if (@TempData["ErrorMessage"] != null)
+        if (@TempData[key: "ErrorMessage"] != null)
         {
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

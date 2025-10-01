@@ -30,7 +30,6 @@ namespace P1WebMVC.Controllers
 
             try
             {
-
                 if (string.IsNullOrEmpty(post.PostCaption))
                 {
 
@@ -76,10 +75,15 @@ namespace P1WebMVC.Controllers
 
             // fetch userid // token // redirect login // register 
          
+            Guid? userId = HttpContext.Items["userId"] as Guid?;
 
-              Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
+            if (userId == null)
+            {
+                TempData["ErrorMessage"] = "User not authenticated!";
+                return RedirectToAction("Login", "User");
+            }
 
-            comment.UserId = userId;    /// fetched userId from token 
+            comment.UserId = userId.Value;    /// fetched userId from middleware 
             comment.PostId = postId;   // query param
 
             await dbContext.Comments.AddAsync(comment);
@@ -97,7 +101,7 @@ namespace P1WebMVC.Controllers
         {
 
             // fetch userid // token // redirect to  login if token is not present or not valid 
-              Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
+            Guid? userId = HttpContext.Items["userId"] as Guid?;
 
             //logic for like
 
@@ -116,8 +120,8 @@ namespace P1WebMVC.Controllers
 
             await dbContext.SaveChangesAsync();
 
-
             TempData["SuccessMessage"] = "Liked the Post !";
+            
             return RedirectToAction("Index", "Explore");
 
         }
@@ -128,7 +132,7 @@ namespace P1WebMVC.Controllers
         {
 
             // fetch userid // token // redirect to  login if token is not present or not valid 
-             Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
+          Guid? userId = HttpContext.Items["userId"] as Guid?;
             //logic for like
 
             var user = await dbContext.Users.FindAsync(userId);

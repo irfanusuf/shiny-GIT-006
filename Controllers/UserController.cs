@@ -16,7 +16,6 @@ namespace P1WebMVC.Controllers
         private readonly SqlDbContext dbContext;
         private readonly ITokenService tokenService;
         private readonly IMailService mailService;
-
         private readonly ICloudinaryService cloudinaryService;
 
         public UserController(SqlDbContext dbContext, ITokenService tokenService, IMailService mailService, ICloudinaryService cloudinaryService)
@@ -86,13 +85,11 @@ namespace P1WebMVC.Controllers
             return View();
         }
 
-
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<ActionResult> Login(string Email, string Password)
@@ -143,14 +140,11 @@ namespace P1WebMVC.Controllers
             }
         }
 
-
-
         [HttpGet]
         public ActionResult ForgotPassword()
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<ActionResult> ForgotPassword(string Email)
@@ -188,8 +182,6 @@ namespace P1WebMVC.Controllers
             }
         }
 
-
-
         [HttpGet]
         public ActionResult UpdatePassword(string token)
         {
@@ -212,8 +204,6 @@ namespace P1WebMVC.Controllers
             }
 
         }
-
-
 
         [HttpPost]
         public async Task<ActionResult> UpdatePassword(string Password, string ConfirmPassword, Guid userId)
@@ -253,24 +243,14 @@ namespace P1WebMVC.Controllers
 
         }
 
-
-
         [Authorize]
         [HttpGet]
-
         public async Task<ActionResult> Dashboard()
         {
-
             try
             {
-
-                Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
-   
-
-                var user = await dbContext.Users.FindAsync(userId);
-
-
-
+                Guid? userId = HttpContext.Items["userId"] as Guid?;
+                
                 var posts = await dbContext.Posts
                 .Include(post => post.Likes)
                 .Include(posts => posts.Comments)
@@ -281,12 +261,10 @@ namespace P1WebMVC.Controllers
                 var viewModel = new ExploreViewModel
                 {
                     Posts = posts,
-                    LoggedInUser = user
+                    LoggedInUser = HttpContext.Items["user"] as User
                 };
 
                 return View(viewModel);
-
-
 
             }
             catch (System.Exception ex)
@@ -294,14 +272,13 @@ namespace P1WebMVC.Controllers
                 ViewBag.ErrorMessage = ex.Message;
                 return View("Error");
             }
-
         }
 
-        [HttpPost]
 
+        [Authorize]
+        [HttpPost]
         public async Task<ActionResult> UploadProfile(IFormFile image)
         {
-
             // actual upload 
 
             if (image == null || image.Length == 0)
@@ -310,26 +287,7 @@ namespace P1WebMVC.Controllers
                 return RedirectToAction("dashboard");
             }
 
-            var token = HttpContext.Request.Cookies["authToken"];
-
-            if (string.IsNullOrEmpty(token))
-            {
-                TempData["ErrorMessage"] = "Forbidden to access the page";
-                return RedirectToAction("login");
-            }
-
-            var userId = tokenService.VerifyTokenAndGetId(token);
-
-            if (userId == Guid.Empty)
-            {
-                TempData["ErrorMessage"] = "Unauthorized to access the page";
-                return RedirectToAction("login");
-            }
-
-
-            var user = await dbContext.Users.FindAsync(userId);
-
-            if (user != null)
+            if (HttpContext.Items["user"] is User user)
             {
 
                 var SecureUrl = await cloudinaryService.UploadImageAsync(image);

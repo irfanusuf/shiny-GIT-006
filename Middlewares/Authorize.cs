@@ -37,15 +37,12 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
         var dbContext = context.HttpContext.RequestServices.GetService(typeof(SqlDbContext)) as SqlDbContext;
 
-        var user = dbContext?.Users.Find(userId);
+        var user = dbContext?.Users.Find(userId);    // bottle neck 
 
+        // httpcontext
+        context.HttpContext.Items["userId"] = userId;     //data storage per request // resource intensive // 
 
-        // sesssion storage
-        context.HttpContext.Items["userId"] = user?.UserId;
-
-        context.HttpContext.Items["user"] = user;
-
-
+        context.HttpContext.Items["user"] = user;     //all userDetails will get saved then can be accesed in the controllers 
 
 
     }

@@ -29,11 +29,6 @@ namespace P1WebMVC.Controllers
         {
             try
             {
-                Guid userId = Guid.Parse(HttpContext.Items["userId"].ToString());
-
-
-                
-                var user = await dbContext.Users.FindAsync(userId);
 
                 var posts = await dbContext.Posts
                 .Include(posts => posts.Comments)
@@ -44,7 +39,7 @@ namespace P1WebMVC.Controllers
                 var exploreViewModel = new ExploreViewModel
                 {
                     Posts = posts,
-                    LoggedInUser = user
+                    LoggedInUser = HttpContext.Items["user"] as User
                 };
 
                 // DTO
