@@ -1,4 +1,5 @@
-﻿@model P1WebMVC.Models.ViewModels.ExploreViewModel
+﻿@using CloudinaryDotNet.Actions
+@model P1WebMVC.Models.ViewModels.ExploreViewModel
 
 
 @* explore view model  class is a data view model for this page  *@
@@ -74,11 +75,24 @@
         </form>
       </div>
       <!-- Button trigger modal -->
-      <button type="button" class="mt-3 btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button type="button" class="mt-3 btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#postModal">
         Add Post
       </button>
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+       <button type="button" class="mt-3 btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#reelModal">
+        Add Reel
+      </button>
+
+
+
+
+
+
+
+      <!-- post Modal -->
+      <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -91,7 +105,38 @@
                 asp-route-userId="@Model.LoggedInUser.UserId">
 
                 <div class="mb-3">
-                  <input type="file" class="form-control" name="image" />
+                  <input type="file" class="form-control" name="image" accept=".jpg,.jpeg,.png" />
+                </div>
+                <textarea class="form-control" name="PostCaption"> Your Caption   </textarea>
+                <button type="submit" class="btn btn-sm btn-secondary mt-3"> Upload </button>
+              </form>
+            </div>
+
+
+            @* <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"></button>
+        </div> *@
+          </div>
+        </div>
+      </div>
+
+
+
+         <!-- reel Modal -->
+      <div class="modal fade" id="reelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Upload your Reel</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="CreateReel">
+
+                <div class="mb-3">
+                    <input type="file" class="form-control" name="video" accept="video/*" />
                 </div>
                 <textarea class="form-control" name="PostCaption"> Your Caption   </textarea>
                 <button type="submit" class="btn btn-sm btn-secondary mt-3"> Upload </button>
@@ -122,7 +167,17 @@
           foreach (Post post in Model.Posts)
           {
             <div>
+
+            @if(post.PostpicURL != null){
               <img src="@post.PostpicURL" width="400" height="400" />
+            }else{
+              <video width="400" ,height="400" controls autoplay loop>  
+              
+                <source src="@post.PostVideoURL" type="video/mp4" />
+              
+               </video>
+            }
+              
 
               <div class="d-flex gap-3">
 

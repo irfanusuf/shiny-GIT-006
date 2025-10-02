@@ -7,6 +7,8 @@ public class ExploreViewModel
 
     public ICollection<Post> Posts { get; set; } = [];
 
+    public ICollection<Post> Reels { get; set; } = [];
+
     public ICollection<User> Users { get; set; } = [];
 
     public User? LoggedInUser { get; set; }

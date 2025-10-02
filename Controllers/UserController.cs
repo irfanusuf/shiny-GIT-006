@@ -243,6 +243,8 @@ namespace P1WebMVC.Controllers
 
         }
 
+
+
         [Authorize]
         [HttpGet]
         public async Task<ActionResult> Dashboard()
@@ -257,10 +259,14 @@ namespace P1WebMVC.Controllers
                 .Where(post => post.UserId == userId)
                 .ToListAsync();
 
-                // DTO
+
+                var filteredReels = posts.Where(post => post.PostVideoURL != null);
+
+                // DTO  
                 var viewModel = new ExploreViewModel
                 {
                     Posts = posts,
+                    // Reels = (ICollection<Post>)filteredReels,
                     LoggedInUser = HttpContext.Items["user"] as User
                 };
 

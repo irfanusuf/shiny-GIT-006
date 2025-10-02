@@ -71,7 +71,6 @@ public class CloudinaryService : ICloudinaryService
 
     public async Task<string> UploadImageAsync(IFormFile image)
     {
-
         try
         {
             if (image == null || image.Length == 0)
@@ -112,19 +111,42 @@ public class CloudinaryService : ICloudinaryService
 
 
 
-
-
-
-
-
-
     public string UploadVideo(IFormFile video)
     {
         throw new NotImplementedException();
     }
 
-    public string UploadVideoAsync(IFormFile video)
+
+
+
+    public async Task<string> UploadVideoAsync(IFormFile video)
     {
-        throw new NotImplementedException();
+
+        if (video == null || video.Length == 0)
+        {
+            throw new ArgumentException("video File is missing.");
+        }
+
+        var stream = video.OpenReadStream();
+
+        var videoUploadParams = new VideoUploadParams
+        {
+            File = new FileDescription(video.FileName, stream),
+            UseFilename = true,
+            UniqueFilename = false,
+            Overwrite = true,
+            Folder = "P1WEBMVC-Reels"
+        };
+
+        var upload = await cloudinary.UploadAsync(videoUploadParams);
+
+        if (upload.Error != null)
+        {
+            throw new InvalidOperationException($"Upload failed ! {upload.Error.Message}");
+        }
+
+        return upload.SecureUrl.ToString();
+
+
     }
 }

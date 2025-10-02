@@ -7,7 +7,6 @@ public class Post
 {
 
     public Guid PostId { get; set; } = Guid.NewGuid();   // pk 
-
     public Guid? UserId { get; set; }  // Fk
 
     [ForeignKey("UserId")]

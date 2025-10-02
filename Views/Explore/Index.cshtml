@@ -21,7 +21,15 @@
 
     <div  class="col-lg-4"  >   
     
-    <img src="@post.PostpicURL" class="img-fluid" />  
+    @if(post.PostpicURL != null){
+              <img src="@post.PostpicURL" width="400" height="400" />
+            }else{
+              <video width="400" controls autoplay loop>  
+              
+                <source src="@post.PostVideoURL" type="video/mp4" />
+              
+               </video>
+            }
 
     <div class="d-flex gap-3">
       
