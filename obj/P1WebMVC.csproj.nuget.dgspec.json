@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/P1WebMVC.csproj": {}
+    "/home/irfanyousuf/coding/GIT_006/P1WebMVC/P1WebMVC.csproj": {}
   },
   "projects": {
-    "/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/P1WebMVC.csproj": {
+    "/home/irfanyousuf/coding/GIT_006/P1WebMVC/P1WebMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/P1WebMVC.csproj",
+        "projectUniqueName": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/P1WebMVC.csproj",
         "projectName": "P1WebMVC",
-        "projectPath": "/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/P1WebMVC.csproj",
+        "projectPath": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/P1WebMVC.csproj",
         "packagesPath": "/home/irfanyousuf/.nuget/packages/",
-        "outputPath": "/home/irfanyousuf/coding/shiny-GIT-006/P1WebMVC/obj/",
+        "outputPath": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/irfanyousuf/.nuget/NuGet/NuGet.Config"

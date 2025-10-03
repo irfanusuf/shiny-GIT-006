@@ -6,9 +6,27 @@
 }
 
 
+<style>
+  .post_card {
 
 
-<div class="container mt-5 mx-auto">
+    >.post_image {
+      border-radius: 5px;
+      transition: all 0.7s ease-in;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+</style>
+
+  
+
+
+
+
+<div class="container mt-5">
 
 <h3>   Explore </h3>
 
@@ -19,19 +37,20 @@
    foreach(Post post in Model.Posts){
 
 
-    <div  class="col-lg-4"  >   
+    <div  class="col-lg-3 post_card " >   
     
-    @if(post.PostpicURL != null){
-              <img src="@post.PostpicURL" width="400" height="400" />
-            }else{
-              <video width="400" controls autoplay loop>  
-              
-                <source src="@post.PostVideoURL" type="video/mp4" />
-              
-               </video>
-            }
+    @if(post.PostpicURL != null)
+    {
+      <img class="post_image" src="@post.PostpicURL" width="300" height="400" />
+    }
+      else
+    {
+      <video width="300">          
+        <source src="@post.PostVideoURL" type="video/mp4" />        
+      </video>
+    }
 
-    <div class="d-flex gap-3">
+    <div class="d-flex gap-2">
       
       <div>
 
@@ -59,14 +78,14 @@
       
     </div>
 
-      <p class="" > @post.PostCaption </p>
+    <p class="text-muted italic" > @post.PostCaption </p>
 
 
     </div>
             
         
 <!-- Modal -->
-    <div class="modal fade" id="Modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -77,7 +96,17 @@
 
       <div class="modal-body">
 
-       <img src="@post.PostpicURL" width="460" height="460"/>
+        
+    @if(post.PostpicURL != null)
+    {
+    <img src="@post.PostpicURL" width="460" height="400" />
+    }
+    else
+    {
+    <video width="460" controls  >          
+      <source src="@post.PostVideoURL" type="video/mp4" />    
+    </video>
+    }
 
        <p class="w-100" > @post.PostCaption </p> 
 
@@ -88,11 +117,18 @@
 
             <p> Comments </p>
 
-          @foreach(Comment comment in post.Comments){
+       @foreach(Comment comment in post.Comments){
 
-          <div class="d-flex">
-            <div style="border : 1px solid grey ;border-radius : 100% ; width : 30px ; height :30px;">  </div>
-            <p class="ms-2 text-muted"> @comment.CommentText </p>
+          <div class="d-flex mb-2">
+            <div style="border : 1px solid grey ;border-radius : 100% ; width : 40px ; height :40px;"> 
+                <img  style="border-radius : 100% ; width : 40px ; height :40px;" src="@comment?.User?.ProfilePic"  />   
+             </div>
+
+             <div class="ms-3">
+                  <a asp-action="Profile" asp-controller="Explore" asp-route-userId ="@comment?.UserId" class="m-0 h-6" > @comment?.User?.Username </a>
+                  <p class=" text-muted m-0"> @comment?.CommentText </p>
+             </div>
+          
           </div>
         }
         
@@ -116,7 +152,7 @@
 
     </div>
   </div>
-    </div>
+</div>
 
    }
 }

@@ -25,13 +25,14 @@ namespace P1WebMVC.Controllers
         // attribute flag 
 
         [Authorize]
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             try
             {
 
                 var posts = await dbContext.Posts
-                .Include(posts => posts.Comments)
+                .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
                 .Include(posts => posts.Likes)
                 .Where(posts => posts.PostCaption != null)
                 .ToListAsync();
@@ -50,6 +51,39 @@ namespace P1WebMVC.Controllers
                 throw;
             }
         }
+
+
+        [Authorize]
+        [HttpGet]
+
+        public async Task<ActionResult> Profile(Guid userId)
+        {
+
+
+            var posts = await dbContext.Posts
+            .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
+            .Include(posts => posts.Likes)
+            .Where(post => post.UserId == userId)
+            .ToListAsync();
+
+            var profileUser = await dbContext.Users.FindAsync(userId);
+
+            var exploreViewModel = new ExploreViewModel
+            {
+                Posts = posts,
+                LoggedInUser = HttpContext.Items["user"] as User,
+                ProfileUser = profileUser
+
+            };
+
+
+            return View(exploreViewModel);
+
+        }
+
+
+    
+
 
     }
 }

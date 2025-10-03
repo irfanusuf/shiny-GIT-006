@@ -13,5 +13,7 @@ public class ExploreViewModel
 
     public User? LoggedInUser { get; set; }
 
+    public User? ProfileUser { get; set; }
+
 
 }
