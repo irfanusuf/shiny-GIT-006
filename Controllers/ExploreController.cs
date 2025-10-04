@@ -30,11 +30,10 @@ namespace P1WebMVC.Controllers
         {
             try
             {
-
                 var posts = await dbContext.Posts
                 .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
                 .Include(posts => posts.Likes)
-                .Where(posts => posts.PostCaption != null)
+                .Where(posts => posts.PostpicURL != null)
                 .ToListAsync();
 
                 var exploreViewModel = new ExploreViewModel
@@ -51,6 +50,37 @@ namespace P1WebMVC.Controllers
                 throw;
             }
         }
+
+
+
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult> Reels()
+        {
+            try
+            {
+                var posts = await dbContext.Posts
+                .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
+                .Include(posts => posts.Likes)
+                .Where(posts => posts.PostVideoURL != null)
+                .ToListAsync();
+
+                var exploreViewModel = new ExploreViewModel
+                {
+                    Posts = posts,
+                    LoggedInUser = HttpContext.Items["user"] as User
+                };
+
+                // DTO
+                return View(exploreViewModel);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
 
 
         [Authorize]

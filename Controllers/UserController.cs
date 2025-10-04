@@ -255,7 +255,7 @@ namespace P1WebMVC.Controllers
                 
                 var posts = await dbContext.Posts
                 .Include(post => post.Likes)
-                .Include(posts => posts.Comments)
+                .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
                 .Where(post => post.UserId == userId)
                 .ToListAsync();
 

@@ -1,288 +1,268 @@
-﻿@using CloudinaryDotNet.Actions
-@model P1WebMVC.Models.ViewModels.ExploreViewModel
-
-
-@* explore view model  class is a data view model for this page  *@
+﻿@model P1WebMVC.Models.ViewModels.ExploreViewModel
 
 @{
   ViewData["Title"] = "Dashboard";
 }
 
+<div class="container" style="max-width:1100px; margin:10px auto; font-family:'Inter',sans-serif;">
 
-<style>
-  .img_container {
-    border: 1px solid grey;
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-  }
-
-  .image_thumbnail {
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-  }
-</style>
-
-
-<div class="container">
-
-
+  <!-- ========== Profile Header ========== -->
   @if (Model.LoggedInUser != null)
   {
+    <div
+      style="display:flex; gap:1rem; align-items:center; margin-bottom:2rem; padding:1rem; background:#fff; border-radius:3px; box-shadow:2px 2px 10px 10px rgba(0,0,0,0.08); ">
 
-    <div class ="ms-4">
+      <img src="@(Model.LoggedInUser.ProfilePic ?? "https://via.placeholder.com/90")" alt="avatar"
+        style="width:90px; height:90px; border-radius:50%; object-fit:cover;" />
 
-      <div class="d-flex align-items-center mt-3">
+      <div style="flex:1; min-width:200px;">
+        <h3 style="margin:0; font-weight:700; text-transform:uppercase;">@Model.LoggedInUser.Username</h3>
+        <div style="display:flex; gap:1.5rem; font-size:16px; color:#555; margin:0.5rem 0;">
+          <span><strong>@(Model.Posts?.Count ?? 0)</strong> posts</span>
+          <span><strong>0</strong> followers</span>
+          <span><strong>0</strong> following</span>
+        </div>
+        <div style="display:flex; gap:0.5rem; ">
+          <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadProfileModal"
+            style="border-radius:50px; display:flex; align-items:center; gap:5px; font-weight : 600 ; padding : 5px 10px "><i class="bi bi-camera"></i>
+            Update</button>
+          <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#postModal"
+            style="border-radius:50px; display:flex; align-items:center; gap:5px; font-weight : 600 ; padding : 5px 10px "><i class="bi bi-plus-square"></i>
+            Post</button>
+          <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#reelModal"
+            style="border-radius:50px; display:flex; align-items:center; gap:5px; font-weight : 600 ; padding : 5px 10px "><i class="bi bi-camera-video"></i>
+            Reel</button>
+        </div>
+      </div>
+    </div>
+  }
 
-        <div class="img_container">
+  <!-- ========== Posts Grid ========== -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:5px;">
 
-          @{
-            if (Model.LoggedInUser.ProfilePic == null)
-            {
-              <img class="img-thumbnail image_thumbnail"
-                src="https://res.cloudinary.com/dbo0xmbd7/image/upload/v1757921401/P1WEBMVC/Screenshot_From_2025-09-15_12-58-26.png" />
-            }
-            else
-            {
-              <img class="img-thumbnail image_thumbnail" src="@Model.LoggedInUser.ProfilePic" />
-            }
+    @foreach (var post in Model.Posts)
+    {
+      <div style="background:#fff; border-radius:3px; overflow:hidden; box-shadow:2px 2px 10px 10px rgba(0,0,0,0.08);">
+
+        <!-- Post Media -->
+        <div style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#MediaModal-@post.PostId">
+          @if (post.PostpicURL != null)
+          {
+            <img src="@post.PostpicURL" style="width:100%; height:250px; object-fit:cover;" />
+          }
+          else
+          {
+            <video style="width:100%; height:250px; object-fit:cover;" controls>
+              <source src="@post.PostVideoURL" type="video/mp4" />
+            </video>
           }
         </div>
 
-        <h3 class="ms-3"> @Model.LoggedInUser.Username.ToUpper() </h3>
+        <!-- Actions -->
+        <div style="  display:flex; gap:10px; padding-left:10px">
 
-      </div>
-
-      <div class="d-flex align-items-center">
-        <form class="w-25 mt-3" method="post" enctype="multipart/form-data" asp-controller="User"
-          asp-action="UploadProfile">
-
-          <input class="form-control" type="file" name="image" />
-          <button class="btn btn-sm btn-secondary mt-2">
-
-            @{
-              if (Model.LoggedInUser.ProfilePic != null)
-              {
-                <span> Update Profile pic</span>
-              }
-              else
-              {
-                <span> Upload profile pic</span>
-              }
-            }
-          </button>
-        </form>
-      </div>
-      <!-- Button trigger modal -->
-      <button type="button" class="mt-3 btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#postModal">
-        Add Post
-      </button>
-
-
-
-       <button type="button" class="mt-3 btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#reelModal">
-        Add Reel
-      </button>
-
-
-
-
-
-
-
-      <!-- post Modal -->
-      <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Upload your Post</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="CreatePost"
-                asp-route-userId="@Model.LoggedInUser.UserId">
-
-                <div class="mb-3">
-                  <input type="file" class="form-control" name="image" accept=".jpg,.jpeg,.png" />
-                </div>
-                <textarea class="form-control" name="PostCaption"> Your Caption   </textarea>
-                <button type="submit" class="btn btn-sm btn-secondary mt-3"> Upload </button>
-              </form>
-            </div>
-
-
-            @* <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary"></button>
-        </div> *@
-          </div>
-        </div>
-      </div>
-
-
-
-         <!-- reel Modal -->
-      <div class="modal fade" id="reelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Upload your Reel</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="CreateReel">
-
-                <div class="mb-3">
-                    <input type="file" class="form-control" name="video" accept="video/*" />
-                </div>
-                <textarea class="form-control" name="PostCaption"> Your Caption   </textarea>
-                <button type="submit" class="btn btn-sm btn-secondary mt-3"> Upload </button>
-              </form>
-            </div>
-
-
-            @* <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary"></button>
-        </div> *@
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  }
-
-
-
-
-  <div class=" mt-5">
-    <div class="d-flex gap-3 justify-content-center flex-wrap">
-
-      @if (Model.Posts != null && Model.LoggedInUser != null)
-      {
-        foreach (Post post in Model.Posts)
-        {
-          <div>
-
-            @if (post.PostpicURL != null)
+          <div style="margin-top : 2px">
+            @if (post.Likes.Contains(Model.LoggedInUser))
             {
-              <img src="@post.PostpicURL" width="400" height="400" />
+              <a href="/post/Removelike?postId=@post.PostId"><i class="bi bi-heart-fill text-danger"
+                  style="font-size:20px; cursor:pointer;"></i></a>
             }
             else
             {
-              <video width="400" ,height="400">
-
-                <source src="@post.PostVideoURL" type="video/mp4" />
-
-              </video>
+              <a href="/post/like?postId=@post.PostId"><i class="bi bi-heart text-danger"
+                  style="font-size:20px; cursor:pointer;"></i></a>
             }
 
+          
+          </div>
 
-            <div class="d-flex gap-3">
+          <div style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#CommentsModal-@post.PostId">
+            <i class="bi bi-chat text-success" style="font-size:20px;"></i>
+            <span>@post.Comments.Count </span>
+          </div>
 
-              <div>
 
-                @if (post.Likes.Contains(Model.LoggedInUser))
+        </div>
+
+
+        @* likes  *@
+        <p style="padding-left : 10px ; color : #444 ; font-weight:600; cursor:pointer;" data-bs-toggle="modal"
+                 data-bs-target="#LikesModal-@post.PostId">@post.Likes.Count likes
+        </p>
+     
+
+        <!-- Caption -->
+        <p style="padding-left : 10px; color:#444;">@post.PostCaption</p>
+
+      </div>
+
+      <!-- ========== Media Modal ========== -->
+      <div class="modal fade" id="MediaModal-@post.PostId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content" style="border-radius:10px; padding:0;">
+            @if (post.PostpicURL != null)
+            {
+              <img src="@post.PostpicURL" style="width:100%; height:auto; object-fit:contain; border-radius:10px;" />
+            }
+            else
+            {
+              <video style="width:100%; height:auto; border-radius:10px;" controls>
+                <source src="@post.PostVideoURL" type="video/mp4" />
+              </video>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Comments Modal ========== -->
+      <div class="modal fade" id="CommentsModal-@post.PostId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+          <div class="modal-content" style="border-radius:10px; padding:1rem;">
+
+            <h5 style="margin-bottom:1rem;">Comments</h5>
+            <div style="max-height:400px; overflow-y:auto;">
+              @if (post.Comments.Count > 0)
+              {
+                @foreach (var comment in post.Comments)
                 {
-                  <a href="/post/Removelike?postId=@post.PostId">
-                    <i class="bi bi-suit-heart-fill text-danger  " style="font-size: 22px; font-style : bold"></i>
-                  </a>
-                }
-                else
-                {
-                  <a href="/post/like?postId=@post.PostId">
-                    <i class="bi bi-suit-heart text-danger  " style="font-size: 22px; font-style : bold"></i>
-                  </a>
-                }
-
-                <p class="mb-0 ms-1 " style="font-weight : 500"> @post.Likes.Count </p>
-
-              </div>
-
-
-              <div data-bs-toggle="modal" data-bs-target="#Modal-@post.PostId">
-                <i class="bi bi-chat-square-dots text-success  " style="font-size: 22px; font-style : bold"></i>
-                <p class="mb-0 ms-1" style="font-weight : 500"> @post.Comments.Count </p>
-              </div>
-
-              <!-- Modal -->
-              <div class="modal fade" id="Modal-@post.PostId" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel"> @post.User?.Username</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-
-                      <img src="@post.PostpicURL" width="460" height="460" />
-
-                      <p class="w-100"> @post.PostCaption </p>
-
-
-                      <div class="mt-3">
-
-                        @if (post.Comments.Count > 0)
-                        {
-
-                          <p> Comments </p>
-
-                          @foreach (Comment comment in post.Comments)
-                          {
-
-                            <div class="d-flex mb-2">
-                              <div style="border : 1px solid grey ;border-radius : 100% ; width : 40px ; height :40px;">
-                                <img style="border-radius : 100% ; width : 40px ; height :40px;"
-                                  src="@comment?.User?.ProfilePic" />
-                              </div>
-
-                              <div class="ms-3">
-                                <a asp-action="Profile" asp-controller="Explore" asp-route-userId="@comment?.UserId"
-                                  class="m-0 h-6"> @comment?.User?.Username </a>
-                                <p class=" text-muted m-0"> @comment?.CommentText </p>
-                              </div>
-
-                            </div>
-                          }
-
-                        }
-                        else
-                        {
-                          <div class="d-flex justify-content-center">
-                            <p class="text-muted"> No Comments yet </p>
-                          </div>
-                        }
-                      </div>
-
-                      <form method="post" asp-controller="Post" asp-action="AddComment" asp-route-postId="@post.PostId">
-
-                        <input class="form-control" placeholder="Your thoughts" name="CommentText" />
-
-                        <button type="submit" class="btn btn-sm btn-secondary mt-3"> Comment </button>
-
-                      </form>
+                  <div style="display:flex; gap:0.5rem; align-items:center; padding:0.25rem 0; border-bottom:1px solid #eee;">
+                    <img src="@comment?.User?.ProfilePic"
+                      style="width:35px; height:35px; border-radius:50%; object-fit:cover;" />
+                    <div>
+                      <a asp-action="Profile" asp-controller="Explore" asp-route-userId="@comment?.UserId"
+                        style="font-weight:600; text-decoration:none; color:#000;">@comment?.User?.Username</a>
+                      <p style="margin:0; color:#555;">@comment?.CommentText</p>
                     </div>
                   </div>
-              </div>
-              </div>
+                }
+              }
+              else
+              {
+                <p style="text-align:center; color:#777;">No comments yet</p>
+              }
             </div>
-            <p class="text-muted mt-2"> @post.PostCaption </p>
-          </div>
-        }
-      }
-      else
-      {
-        <div> No Posts Yet </div>
-      }
 
+            <form method="post" asp-controller="Post" asp-action="AddComment" asp-route-postId="@post.PostId"
+              style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+              <input class="form-control" name="CommentText" placeholder="Add a comment..."
+                style="flex:1; border-radius:20px; padding:0.5rem;" />
+              <button type="submit" class="btn btn-secondary" style="border-radius:20px;">Post</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Likes Modal ========== -->
+      <div class="modal fade" id="LikesModal-@post.PostId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+          <div class="modal-content" style="border-radius:10px; padding:1rem;">
+            <h5 style="margin-bottom:1rem;">Liked by</h5>
+            <div style="max-height:400px; overflow-y:auto;">
+              @if (post.Likes.Count > 0)
+              {
+                @foreach (var like in post.Likes)
+                {
+                  <div style="display:flex; gap:0.5rem; align-items:center; padding:0.25rem 0; border-bottom:1px solid #eee;">
+                    <img src="@like.ProfilePic" style="width:35px; height:35px; border-radius:50%; object-fit:cover;" />
+                    <span style="font-weight:600;">@like.Username</span>
+                  </div>
+                }
+              }
+              else
+              {
+                <p style="text-align:center; color:#777;">No likes yet</p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+    }
+  </div>
+</div>
+
+
+<!-- ====== Update Profile Modal ====== -->
+<div class="modal fade" id="uploadProfileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="padding:1rem; border-radius:10px;">
+      <div class="modal-header" style="border:none;">
+        <h5 class="modal-title" style="font-weight:600;">Update Profile Picture</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" style="border:none;"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="UploadProfile">
+          @Html.AntiForgeryToken()
+          <div style="text-align:center; margin-bottom:1rem;">
+            <img id="profilePreview" src="@(Model.LoggedInUser.ProfilePic ?? "https://via.placeholder.com/240")" 
+                 style="width:180px; height:180px; border-radius:50%; object-fit:cover;" />
+          </div>
+          <input class="form-control" type="file" name="image" accept="image/*" style="margin-bottom:0.5rem;" />
+          <div style="font-size:12px; color:#555; margin-bottom:1rem;">Choose a square image for best results (min 200x200)</div>
+          <div style="display:flex; justify-content:end; gap:0.5rem;">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius:20px;">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="border-radius:20px;">Upload</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+</div>
 
+<!-- ====== Add Post Modal ====== -->
+<div class="modal fade" id="postModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="padding:1rem; border-radius:10px;">
+      <div class="modal-header" style="border:none;">
+        <h5 class="modal-title" style="font-weight:600;">Create Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" style="border:none;"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="CreatePost" asp-route-userId="@Model.LoggedInUser.UserId">
+          @Html.AntiForgeryToken()
+
+          <div style="text-align:center; margin-bottom:1rem;">
+            <img id="postPreviewImage" style="display:none; max-width:100%; border-radius:10px;" />   
+          </div>
+
+          <input class="form-control" type="file" name="image" id="postMediaInput" accept=".jpg,.jpeg,.png" style="margin-bottom:0.5rem;" />
+          <div style="font-size:12px; color:#555; margin-bottom:1rem;">Images Max recommended size: 20MB in 4/3 ratio</div>
+          <textarea class="form-control" name="PostCaption" rows="3" placeholder="Write a caption..." style="margin-bottom:1rem;"></textarea>
+          <div style="display:flex; justify-content:end; gap:0.5rem;">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius:20px;">Cancel</button>
+            <button type="submit" class="btn btn-secondary" style="border-radius:20px;">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== Add Reel Modal ====== -->
+<div class="modal fade" id="reelModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="padding:1rem; border-radius:10px;">
+      <div class="modal-header" style="border:none;">
+        <h5 class="modal-title" style="font-weight:600;">Upload Reel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" style="border:none;"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data" asp-controller="Post" asp-action="CreateReel">
+          @Html.AntiForgeryToken()
+
+          <div style="text-align:center; margin-bottom:1rem;">
+            <video id="reelPreviewVideo" style="display:none; max-width:100%; border-radius:10px;" controls></video>
+          </div>
+
+          <input class="form-control" type="file" name="video" accept="video/*" style="margin-bottom:0.5rem;" />
+          <div style="font-size:12px; color:#555; margin-bottom:1rem;">Short vertical videos work best (MP4, MOV)</div>
+          <textarea class="form-control" name="PostCaption" rows="3" placeholder="Describe your reel..." style="margin-bottom:1rem;"></textarea>
+          <div style="display:flex; justify-content:end; gap:0.5rem;">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius:20px;">Cancel</button>
+            <button type="submit" class="btn btn-secondary" style="border-radius:20px;">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

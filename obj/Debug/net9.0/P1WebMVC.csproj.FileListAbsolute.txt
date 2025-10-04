@@ -616,9 +616,7 @@
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/scopedcss/bundle/P1WebMVC.styles.css
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/scopedcss/projectbundle/P1WebMVC.bundle.scp.css
-/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/z7xpehy09t-lugek5hnai.gz
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/akazykal1m-61n19gt1b8.gz
-/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/00qswjyuj3-fr7q2aak1r.gz
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/qaou5lztrf-bqjiyaj88i.gz
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/77gn7i9kxz-c2jlpeoesf.gz
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/xz3ube8mm4-erw9l3u2r3.gz
@@ -695,3 +693,5 @@
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.pdb
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/P1WebMVC.genruntimeconfig.cache
 /home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/ref/P1WebMVC.dll
+/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/z7xpehy09t-sfk4ei41y2.gz
+/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/00qswjyuj3-p3va5xkqh4.gz
