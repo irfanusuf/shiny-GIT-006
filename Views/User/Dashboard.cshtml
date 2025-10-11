@@ -40,7 +40,7 @@
   <!-- ========== Posts Grid ========== -->
   <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:5px;">
 
-    @foreach (var post in Model.Posts)
+    @foreach (Post post in Model.Posts)
     {
       <div style="background:#fff; border-radius:3px; overflow:hidden; box-shadow:2px 2px 10px 10px rgba(0,0,0,0.08);">
 
@@ -160,11 +160,11 @@
             <div style="max-height:400px; overflow-y:auto;">
               @if (post.Likes.Count > 0)
               {
-                @foreach (var like in post.Likes)
+                @foreach (P1WebMVC.Models.User user in post.Likes)
                 {
                   <div style="display:flex; gap:0.5rem; align-items:center; padding:0.25rem 0; border-bottom:1px solid #eee;">
-                    <img src="@like.ProfilePic" style="width:35px; height:35px; border-radius:50%; object-fit:cover;" />
-                    <span style="font-weight:600;">@like.Username</span>
+                    <img src="@user.ProfilePic" style="width:35px; height:35px; border-radius:50%; object-fit:cover;" />
+                    <span style="font-weight:600;">@user.Username</span>
                   </div>
                 }
               }

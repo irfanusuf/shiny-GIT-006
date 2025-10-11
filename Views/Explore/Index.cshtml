@@ -4,7 +4,27 @@
     ViewData["Title"] = "Explore";
 }
 
-<div class="container mt-5 mb-5" style="max-width:680px;">
+<style>
+
+.explore_main{
+
+display: flex;
+justify-content: space-around;
+
+}
+</style>
+
+
+
+
+<div class="explore_main">
+
+
+
+<partial name="~/Views/Shared/SideNav.cshtml" />
+
+
+<div class="mt-5 mb-5" style="max-width:680px;">
 
 
     <h3 style="font-weight:700; text-align:center; color:#222; margin-bottom:2rem;">
@@ -137,4 +157,12 @@
             </div>
         </div>
     }
+</div>
+
+
+<partial name="~/Views/Shared/RightSideNav.cshtml" />
+
+@* @await Html.PartialAsync(partialViewName: "~/Views/Shared/SideNav.cshtml") *@
+
+
 </div>
