@@ -33,7 +33,7 @@ namespace P1WebMVC.Controllers
                 var posts = await dbContext.Posts
                 .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
                 .Include(posts => posts.Likes)
-                .Where(posts => posts.PostpicURL != null)
+                // .Where(posts => posts.PostpicURL != null)
                 .ToListAsync();
 
                 var exploreViewModel = new ExploreViewModel
@@ -50,8 +50,6 @@ namespace P1WebMVC.Controllers
                 throw;
             }
         }
-
-
 
 
         [Authorize]
@@ -82,10 +80,8 @@ namespace P1WebMVC.Controllers
         }
 
 
-
         [Authorize]
         [HttpGet]
-
         public async Task<ActionResult> Profile(Guid userId)
         {
 

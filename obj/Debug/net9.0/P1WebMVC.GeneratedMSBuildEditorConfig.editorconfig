@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwbG9yZS9SZWVscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/Explore/test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwbG9yZS90ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/Home/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,10 +60,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/Product/CreateProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZHVjdC9DcmVhdGVQcm9kdWN0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -74,10 +74,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/User/Dashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/irfanyousuf/coding/GIT_006/P1WebMVC/Views/User/ForgotPassword.cshtml]

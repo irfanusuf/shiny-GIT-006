@@ -136,6 +136,18 @@ namespace P1WebMVC.Controllers
         [HttpGet]
         public async Task<ActionResult> Like(Guid postId)
         {
+            // Extract the return URL from the Referer header, fallback to Explore if not available
+
+            // var returnUrl = Request.Headers["Referer"].ToString();
+
+            var returnUrl = HttpContext.Request.Path + HttpContext.Request.QueryString;
+
+
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                returnUrl = Url.Action("Index", "Explore");
+            }
+
 
             // fetch userid // token // redirect to  login if token is not present or not valid 
             Guid? userId = HttpContext.Items["userId"] as Guid?;
@@ -159,13 +171,25 @@ namespace P1WebMVC.Controllers
 
             TempData["SuccessMessage"] = "Liked the Post !";
 
-            return RedirectToAction("Index", "Explore");
+
+            // redirect to return url 
+            return RedirectToAction(returnUrl);
 
         }
 
         [HttpGet]
         public async Task<ActionResult> RemoveLike(Guid postId)
         {
+
+
+            
+            var returnUrl = HttpContext.Request.Path + HttpContext.Request.QueryString;
+
+
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                returnUrl = Url.Action("Index", "Explore");
+            }
 
             // fetch userid // token // redirect to  login if token is not present or not valid 
             Guid? userId = HttpContext.Items["userId"] as Guid?;
@@ -193,7 +217,7 @@ namespace P1WebMVC.Controllers
                 TempData["ErrorMessage"] = "Some Error !";
             }
 
-            return RedirectToAction("Index", "Explore");
+            return RedirectToAction(returnUrl);
 
         }
 

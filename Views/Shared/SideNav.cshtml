@@ -1,4 +1,7 @@
-﻿<style>
+﻿@model P1WebMVC.Models.ViewModels.ExploreViewModel
+
+
+<style>
     .side_nav {
         width: 20%;
         padding: 30px;
@@ -95,10 +98,10 @@
 
     <div class="nav_links">
         <ul>
-            <li> <i class="bi bi-house-door"></i> <a href="/explore/index"> Home </a> </li>
+            <li> <i class="bi bi-house-door"></i> <a href="/explore/index"> Explore </a> </li>
             <li> <i class="bi bi-list-task"></i> <a> Tasks </a> </li>
             <li> <i class="bi bi-people"></i> <a> Users </a> </li>
-            <li> <i class="bi bi-box"></i> <a> Apis</a> </li>
+            <li> <i class="bi bi-box"></i> <a asp-action="Profile" asp-controller="Explore" asp-route-userId = "@Model?.LoggedInUser.UserId"> Profile </a> </li>
             <li> <i class="bi bi-credit-card"></i> <a>Subscriptions </a> </li>
             <li> <i class="bi bi-gear"></i> <a>Settings </a> </li>
             <li> <i class="bi bi-chat-dots"></i> <a> Help and support </a> </li>

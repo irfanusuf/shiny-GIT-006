@@ -244,43 +244,6 @@ namespace P1WebMVC.Controllers
         }
 
 
-
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult> Dashboard()
-        {
-            try
-            {
-                Guid? userId = HttpContext.Items["userId"] as Guid?;
-                
-                var posts = await dbContext.Posts
-                .Include(post => post.Likes)
-                .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
-                .Where(post => post.UserId == userId)
-                .ToListAsync();
-
-
-                var filteredReels = posts.Where(post => post.PostVideoURL != null);
-
-                // DTO  
-                var viewModel = new ExploreViewModel
-                {
-                    Posts = posts,
-                    // Reels = (ICollection<Post>)filteredReels,
-                    LoggedInUser = HttpContext.Items["user"] as User
-                };
-
-                return View(viewModel);
-
-            }
-            catch (System.Exception ex)
-            {
-                ViewBag.ErrorMessage = ex.Message;
-                return View("Error");
-            }
-        }
-
-
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> UploadProfile(IFormFile image)

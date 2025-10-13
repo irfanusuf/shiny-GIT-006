@@ -1,4 +1,4 @@
-﻿
+﻿@model P1WebMVC.Models.ViewModels.ExploreViewModel
 
 
 <style>
@@ -16,9 +16,7 @@
         border-radius: 8px;
 
 
-
         .profile_pic {
-
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -120,15 +118,15 @@
 
             <img class="profile_pic" src="" alt="profileimage" />
 
-            <div class="username"> Username </div>
+            <div class="username"> @Model?.LoggedInUser?.Username </div>
             <div class="userid"> UserId</div>
-            <div class="location"> Location </div>
+            <div class="location"> Sringar , j & k  </div>
 
 
             <div class="user_stats">
 
                 <div>
-                    <span> 548 </span> <span> Posts </span>
+                    <span> @Model?.LoggedInUser?.Posts.Count </span> <span> Posts </span>
                 </div>
 
                 <div>
@@ -182,7 +180,7 @@
 
                 <div>
                     <span> Email Address</span>
-                    <span> name@gamil.com </span>
+                    <span> @Model?.LoggedInUser?.Email </span>
                 </div>
 
                 <div>
