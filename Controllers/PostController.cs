@@ -138,9 +138,7 @@ namespace P1WebMVC.Controllers
         {
             // Extract the return URL from the Referer header, fallback to Explore if not available
 
-            // var returnUrl = Request.Headers["Referer"].ToString();
-
-            var returnUrl = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            var returnUrl = Request.Headers["Referer"].ToString();
 
 
             if (string.IsNullOrEmpty(returnUrl))
@@ -173,7 +171,7 @@ namespace P1WebMVC.Controllers
 
 
             // redirect to return url 
-            return RedirectToAction(returnUrl);
+            return Redirect(returnUrl);
 
         }
 
@@ -182,9 +180,9 @@ namespace P1WebMVC.Controllers
         {
 
 
-            
-            var returnUrl = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            var returnUrl = Request.Headers["Referer"].ToString();
 
+            //  var returunYrl =    HttpContext.Request.Path + HttpContext.Request.QueryString;
 
             if (string.IsNullOrEmpty(returnUrl))
             {
@@ -217,7 +215,7 @@ namespace P1WebMVC.Controllers
                 TempData["ErrorMessage"] = "Some Error !";
             }
 
-            return RedirectToAction(returnUrl);
+            return Redirect(returnUrl);
 
         }
 

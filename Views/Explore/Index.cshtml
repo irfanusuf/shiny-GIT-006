@@ -12,6 +12,38 @@ display: flex;
 justify-content: space-around;
 
 }
+
+
+.explore_post{
+
+max-width:580   px;
+background:#f2eef2;
+ border-radius:5px; 
+ overflow:hidden; 
+ box-shadow:0 3px 10px rgba(65, 62, 62, 0.188); 
+ margin-bottom:2.5rem; 
+ transition:all 0.3s ease;
+}
+
+
+.explore_video{
+
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    video{
+      width: 460px; 
+      aspect-ratio:9/16; 
+      object-fit:cover;"
+    }
+
+
+
+}
+
 </style>
 
 
@@ -24,7 +56,7 @@ justify-content: space-around;
 <partial name="~/Views/Shared/SideNav.cshtml" />
 
 
-<div class="mt-5 mb-5" style="max-width:680px;">
+<div class="mt-5 mb-5" >
 
 
     <h3 style="font-weight:700; text-align:center; color:#222; margin-bottom:2rem;">
@@ -33,7 +65,7 @@ justify-content: space-around;
 
     @foreach (var post in Model.Posts)
     {
-        <div style="background:#f2eef2; border-radius:5px; overflow:hidden; box-shadow:0 3px 10px rgba(65, 62, 62, 0.188); margin-bottom:2.5rem; transition:all 0.3s ease;">
+        <div class="explore_post">
             
             <!-- Header -->
             <div style="display:flex; align-items:center; gap:12px; padding:1rem; border-bottom:1px solid #eee;">
@@ -41,6 +73,7 @@ justify-content: space-around;
                 <span style="font-weight:600;">@post.User?.Username</span>
             </div>
 
+  
             <!-- Media -->
             @if (post.PostpicURL != null)
             {
@@ -48,11 +81,14 @@ justify-content: space-around;
             }
             else
             {
-                <video style="width:100%;" controls>
+            <div class="explore_video">
+                <video controls >
                     <source src="@post.PostVideoURL" type="video/mp4" />
                 </video>
+            </div>
+             
             }
-
+          
             <!-- Footer -->
             <div style="padding:1rem 1.25rem;">
                 <div style="display:flex; align-items:center; gap:10px; margin-bottom:0.5rem;">
