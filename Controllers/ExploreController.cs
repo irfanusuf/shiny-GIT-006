@@ -85,30 +85,41 @@ namespace P1WebMVC.Controllers
         public async Task<ActionResult> Profile(Guid userId)
         {
 
-
-            var posts = await dbContext.Posts
-            .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
-            .Include(posts => posts.Likes)
-            .Where(post => post.UserId == userId)
-            .ToListAsync();
-
-            var profileUser = await dbContext.Users.FindAsync(userId);
-
-            var exploreViewModel = new ExploreViewModel
+            try
             {
-                Posts = posts,
-                LoggedInUser = HttpContext.Items["user"] as User,
-                ProfileUser = profileUser
 
-            };
+                var posts = await dbContext.Posts
+                .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
+                .Include(posts => posts.Likes)
+                .Where(post => post.UserId == userId)
+                .ToListAsync();
+
+                var profileUser = await dbContext.Users.FindAsync(userId);
+                var users = await dbContext.Users.Where(user => user.Posts.Count > 1).ToListAsync();
+
+                var exploreViewModel = new ExploreViewModel
+                {
+                    Posts = posts,
+                    LoggedInUser = HttpContext.Items["user"] as User,
+                    ProfileUser = profileUser,
+                    SuggestedUsers = users
+
+                };
 
 
-            return View(exploreViewModel);
+                return View(exploreViewModel);
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
 
         }
 
 
-    
+
 
 
     }

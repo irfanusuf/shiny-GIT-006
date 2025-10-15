@@ -5,11 +5,28 @@
 }
 
 
+<style>
+
+.profile_main{
+
+display: flex;
+justify-content: space-around;
+}
+
+</style>
+
+
+
+
+
+<div class="profile_main">
+
+
 
 <partial name="~/Views/Shared/SideNav.cshtml" />
 
 
-<div class="container" style="max-width:1100px; margin:10px auto; padding-left : 40px; font-family:'Inter',sans-serif;">
+<div class="container" style="max-width:968px; margin:10px auto; padding-left : 40px; font-family:'Inter',sans-serif;">
 
   <!-- ========== Profile Header ========== -->
   @if (Model.ProfileUser != null)
@@ -194,7 +211,6 @@
 
     }
   </div>
-</div>
 
 
 <!-- ====== Update Profile Modal ====== -->
@@ -280,4 +296,14 @@
       </div>
     </div>
   </div>
+</div>
+</div>
+
+
+
+
+<partial name="~/Views/Shared/SuggestionPartial.cshtml" />
+
+
+
 </div>

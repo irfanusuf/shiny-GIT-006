@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HTh+KEPAs7HYBj+oXSFszdbCpBH19jtemEf9LBmMqsk=",
+  "Hash": "vPQM7VFmRdbIAba+Rib88S1eb9LEPgm7GrxwDbgIFow=",
   "Source": "P1WebMVC",
   "BasePath": "_content/P1WebMVC",
   "Mode": "Default",
@@ -1403,6 +1403,90 @@
       "OriginalItemSpec": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/scopedcss/projectbundle/P1WebMVC.bundle.scp.css"
     },
     {
+      "Identity": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-08 11-32-13.png",
+      "SourceId": "P1WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/",
+      "BasePath": "_content/P1WebMVC",
+      "RelativePath": "assets/Screenshot From 2025-10-08 11-32-13#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "r8zvul7f6f",
+      "Integrity": "1bnnnPHDuLiheh4tCQP6XcUwZfaSj21nhgbc6X/E/pg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/Screenshot From 2025-10-08 11-32-13.png"
+    },
+    {
+      "Identity": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-20-26.png",
+      "SourceId": "P1WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/",
+      "BasePath": "_content/P1WebMVC",
+      "RelativePath": "assets/Screenshot From 2025-10-15 10-20-26#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9a8j9170i1",
+      "Integrity": "T5IhtvPluFbHkh/T/TqpeySEo/jVVJLZC0yPWJh/aPM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/Screenshot From 2025-10-15 10-20-26.png"
+    },
+    {
+      "Identity": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-21-32.png",
+      "SourceId": "P1WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/",
+      "BasePath": "_content/P1WebMVC",
+      "RelativePath": "assets/Screenshot From 2025-10-15 10-21-32#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yxe38rlsbq",
+      "Integrity": "mu3y98dQRtSbrswWiEd+jUem/9/GDssFyTlCiqVn4D0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/Screenshot From 2025-10-15 10-21-32.png"
+    },
+    {
+      "Identity": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-22-35.png",
+      "SourceId": "P1WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/",
+      "BasePath": "_content/P1WebMVC",
+      "RelativePath": "assets/Screenshot From 2025-10-15 10-22-35#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bgezmkgu57",
+      "Integrity": "61lvxgSKh6s6l8vkEVgfJwRaWJChp793Dlzz1cxpVyc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/Screenshot From 2025-10-15 10-22-35.png"
+    },
+    {
       "Identity": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/css/site.css",
       "SourceId": "P1WebMVC",
       "SourceType": "Discovered",
@@ -2727,6 +2811,334 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "assets/Screenshot From 2025-10-08 11-32-13.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-08 11-32-13.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "397537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1bnnnPHDuLiheh4tCQP6XcUwZfaSj21nhgbc6X/E/pg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 08 Oct 2025 06:02:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1bnnnPHDuLiheh4tCQP6XcUwZfaSj21nhgbc6X/E/pg="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-08 11-32-13.r8zvul7f6f.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-08 11-32-13.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "397537"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1bnnnPHDuLiheh4tCQP6XcUwZfaSj21nhgbc6X/E/pg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 08 Oct 2025 06:02:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "r8zvul7f6f"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/Screenshot From 2025-10-08 11-32-13.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1bnnnPHDuLiheh4tCQP6XcUwZfaSj21nhgbc6X/E/pg="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-15 10-20-26.9a8j9170i1.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-20-26.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "794215"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"T5IhtvPluFbHkh/T/TqpeySEo/jVVJLZC0yPWJh/aPM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 15 Oct 2025 04:50:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9a8j9170i1"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/Screenshot From 2025-10-15 10-20-26.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-T5IhtvPluFbHkh/T/TqpeySEo/jVVJLZC0yPWJh/aPM="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-15 10-20-26.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-20-26.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "794215"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"T5IhtvPluFbHkh/T/TqpeySEo/jVVJLZC0yPWJh/aPM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 15 Oct 2025 04:50:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-T5IhtvPluFbHkh/T/TqpeySEo/jVVJLZC0yPWJh/aPM="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-15 10-21-32.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-21-32.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "359503"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mu3y98dQRtSbrswWiEd+jUem/9/GDssFyTlCiqVn4D0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 15 Oct 2025 04:51:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-mu3y98dQRtSbrswWiEd+jUem/9/GDssFyTlCiqVn4D0="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-15 10-21-32.yxe38rlsbq.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-21-32.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "359503"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mu3y98dQRtSbrswWiEd+jUem/9/GDssFyTlCiqVn4D0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 15 Oct 2025 04:51:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yxe38rlsbq"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/Screenshot From 2025-10-15 10-21-32.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-mu3y98dQRtSbrswWiEd+jUem/9/GDssFyTlCiqVn4D0="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-15 10-22-35.bgezmkgu57.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-22-35.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "425033"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"61lvxgSKh6s6l8vkEVgfJwRaWJChp793Dlzz1cxpVyc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 15 Oct 2025 04:52:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bgezmkgu57"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/Screenshot From 2025-10-15 10-22-35.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-61lvxgSKh6s6l8vkEVgfJwRaWJChp793Dlzz1cxpVyc="
+        }
+      ]
+    },
+    {
+      "Route": "assets/Screenshot From 2025-10-15 10-22-35.png",
+      "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/wwwroot/assets/Screenshot From 2025-10-15 10-22-35.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "425033"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"61lvxgSKh6s6l8vkEVgfJwRaWJChp793Dlzz1cxpVyc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 15 Oct 2025 04:52:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-61lvxgSKh6s6l8vkEVgfJwRaWJChp793Dlzz1cxpVyc="
+        }
+      ]
+    },
     {
       "Route": "css/site.css",
       "AssetFile": "/home/irfanyousuf/coding/GIT_006/P1WebMVC/obj/Debug/net9.0/compressed/z7xpehy09t-p7jex226bq.gz",
