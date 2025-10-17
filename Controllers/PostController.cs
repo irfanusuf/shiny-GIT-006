@@ -113,6 +113,8 @@ namespace P1WebMVC.Controllers
 
             // fetch userid // token // redirect login // register 
 
+            var returnUrl = Request.Headers["Referer"].ToString();
+
             Guid? userId = HttpContext.Items["userId"] as Guid?;
 
             if (userId == null)
@@ -130,7 +132,7 @@ namespace P1WebMVC.Controllers
 
             TempData["SuccessMessage"] = "Comment Added";
 
-            return RedirectToAction("Index", "Explore");
+            return Redirect(returnUrl);
         }
 
         [HttpGet]

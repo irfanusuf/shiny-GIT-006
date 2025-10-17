@@ -13,6 +13,36 @@ display: flex;
 justify-content: space-around;
 }
 
+
+.tabs{
+
+display: flex;
+justify-content: center;
+border-radius:3px; 
+box-shadow:2px 2px 10px 10px rgba(0,0,0,0.08);
+height: 30px;
+margin-bottom: 10px;
+
+
+ul{
+  display: flex;
+   justify-content: space-around;
+   width: 100%;
+   padding-top: 4px;
+
+  li{
+    list-style-type: none;
+    cursor: pointer;
+    font-size: large;
+    color: grey;
+    font-weight: 600  ;
+  }
+}
+
+
+}
+
+
 </style>
 
 
@@ -26,13 +56,13 @@ justify-content: space-around;
 <partial name="~/Views/Shared/SideNav.cshtml" />
 
 
-<div class="container" style="max-width:968px; margin:10px auto; padding-left : 40px; font-family:'Inter',sans-serif;">
+<div class="container" style="max-width:1080px; margin:10px auto; font-family:'Inter',sans-serif;">
 
   <!-- ========== Profile Header ========== -->
   @if (Model.ProfileUser != null)
   {
     <div
-      style="display:flex; gap:1rem; align-items:center; margin-bottom:2rem; padding:1rem; background:#fff; border-radius:3px; box-shadow:2px 2px 10px 10px rgba(0,0,0,0.08); ">
+      style="display:flex; gap:1rem; align-items:center; padding:1rem; background:#fff; border-radius:3px; box-shadow:2px 2px 10px 10px rgba(0,0,0,0.08); ">
 
       <img src="@(Model.ProfileUser.ProfilePic ?? "https://via.placeholder.com/90")" alt="avatar"
         style="width:90px; height:90px; border-radius:50%; object-fit:cover;" />
@@ -69,8 +99,28 @@ justify-content: space-around;
     </div>
   }
 
+<partial name="~/Views/Shared/Stories.cshtml" />
+
+
+
+<div class="tabs">
+
+
+<ul>
+  <li> Posts </li>
+  <li> Reels</li>
+  <li> Reposts </li>
+</ul>
+
+
+</div>
+
+
+
+
+
   <!-- ========== Posts Grid ========== -->
-  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:5px;">
+<div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:5px;">
 
     @foreach (Post post in Model.Posts)
     {
@@ -210,7 +260,7 @@ justify-content: space-around;
       </div>
 
     }
-  </div>
+</div>
 
 
 <!-- ====== Update Profile Modal ====== -->
@@ -297,6 +347,8 @@ justify-content: space-around;
     </div>
   </div>
 </div>
+
+
 </div>
 
 

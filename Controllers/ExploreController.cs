@@ -84,10 +84,8 @@ namespace P1WebMVC.Controllers
         [HttpGet]
         public async Task<ActionResult> Profile(Guid userId)
         {
-
             try
             {
-
                 var posts = await dbContext.Posts
                 .Include(posts => posts.Comments).ThenInclude(comment => comment.User)
                 .Include(posts => posts.Likes)
@@ -103,24 +101,14 @@ namespace P1WebMVC.Controllers
                     LoggedInUser = HttpContext.Items["user"] as User,
                     ProfileUser = profileUser,
                     SuggestedUsers = users
-
                 };
 
-
                 return View(exploreViewModel);
-
             }
             catch (System.Exception)
             {
-
                 throw;
             }
-
         }
-
-
-
-
-
     }
 }
